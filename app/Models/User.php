@@ -25,18 +25,36 @@ class User extends Authenticatable
         'email',
         'password',
         'foto',
+        'id_rol', // Asegúrate de tener este campo en tu base de datos
     ];
 
+    /**
+     * Relación con el tipo de usuario.
+     */
     public function tipoUsuario()
     {
         return $this->belongsTo(TipoUsuario::class, 'idtipo_usuario');
     }
 
+    /**
+     * Relación con el tipo de documento.
+     */
     public function tipoDocumento()
     {
         return $this->belongsTo(TipoDocumento::class, 'idtipo_documento');
     }
 
+    /**
+     * Relación con el rol.
+     */
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol');
+    }
+
+    /**
+     * Verificar si el usuario tiene acceso a un permiso específico.
+     */
     public function hasAcceso($acceso)
     {
         foreach ($this->roles as $role) {
@@ -48,7 +66,7 @@ class User extends Authenticatable
     }
 
     /**
-     * The attributes that should be hidden for arrays.
+     * Los atributos que deberían estar ocultos para los arrays.
      *
      * @var array<int, string>
      */
@@ -58,7 +76,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Los atributos que deberían ser convertidos a tipos nativos.
      *
      * @var array<string, string>
      */

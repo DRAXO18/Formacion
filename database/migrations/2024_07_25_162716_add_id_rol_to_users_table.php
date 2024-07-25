@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_rol')->nullable();
+            // Agrega la columna id_rol como una clave foránea
+            $table->unsignedBigInteger('id_rol')->nullable()->after('id'); // Puedes ajustar el método after() si es necesario
+            
+            // Define la clave foránea
+            $table->foreign('id_rol')->references('id')->on('roles')->onDelete('set null');
         });
     }
 
@@ -22,7 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            // Elimina la clave foránea antes de eliminar la columna
+            $table->dropForeign(['id_rol']);
+            
+            // Luego elimina la columna
+            $table->dropColumn('id_rol');
         });
     }
 };

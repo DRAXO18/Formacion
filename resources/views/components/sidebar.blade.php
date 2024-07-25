@@ -30,22 +30,26 @@
             margin-top: 2%;
             margin-right: 10px;
         }
+
         .modal-content {
             height: 100%;
             overflow-y: auto;
         }
+
         .profile-picture-container {
             position: relative;
             width: 150px;
             height: 150px;
             margin: 0 auto 20px;
         }
+
         .profile-picture-container img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
         }
+
         .edit-icon {
             position: absolute;
             bottom: 0;
@@ -54,6 +58,7 @@
             border-radius: 50%;
             padding: 5px;
         }
+
         .edit-icon i {
             font-size: 20px;
             color: #000;
@@ -94,15 +99,13 @@
                         </a>
                     </div>
 
-                    <button type="button"
-                        class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
+                    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
                         <i class="mdi mdi-menu"></i>
                     </button>
 
                     <div class="d-none d-sm-block">
                         <div class="dropdown dropdown-topbar pt-3 mt-1 d-inline-block">
-                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Create <i class="mdi mdi-chevron-down"></i>
                             </a>
 
@@ -128,22 +131,17 @@
                     </form>
 
                     <div class="dropdown d-inline-block d-lg-none ms-2">
-                        <button type="button" class="btn header-item noti-icon waves-effect"
-                            id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="mdi mdi-magnify"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                            aria-labelledby="page-header-search-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="page-header-search-dropdown">
 
                             <form class="p-3">
                                 <div class="form-group m-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search ..."
-                                            aria-label="Recipient's username">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i
-                                                    class="mdi mdi-magnify"></i></button>
+                                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -154,61 +152,50 @@
 
 
                     <div class="dropdown d-none d-md-block ms-2">
-                        <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <img class="me-2" src="assets/images/flags/us_flag.jpg" alt="Header Language"
-                                height="16"> English <span class="mdi mdi-chevron-down"></span>
+                        <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="me-2" src="assets/images/flags/us_flag.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle"> German </span>
+                                <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/italy_flag.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle"> Italian </span>
+                                <img src="assets/images/flags/italy_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/french_flag.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle"> French </span>
+                                <img src="assets/images/flags/french_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/spain_flag.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle"> Spanish </span>
+                                <img src="assets/images/flags/spain_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/russia_flag.jpg" alt="user-image" class="me-1"
-                                    height="12"> <span class="align-middle"> Russian </span>
+                                <img src="assets/images/flags/russia_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
                             </a>
                         </div>
                     </div>
 
                     <div class="dropdown d-none d-lg-inline-block">
-                        <button type="button" class="btn header-item noti-icon waves-effect"
-                            data-toggle="fullscreen">
+                        <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
                             <i class="mdi mdi-fullscreen font-size-24"></i>
                         </button>
                     </div>
 
                     <div class="dropdown d-inline-block ms-1">
-                        <button type="button" class="btn header-item noti-icon waves-effect"
-                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="ti-bell"></i>
                             <span class="badge text-bg-danger rounded-pill">3</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                            aria-labelledby="page-header-notifications-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                             <div class="p-3">
                                 <div class="row align-items-center">
                                     <div class="col">
@@ -309,8 +296,7 @@
                                 </a>
                             </div>
                             <div class="p-2 border-top">
-                                <a class="btn btn-sm btn-link font-size-14 w-100 text-center"
-                                    href="javascript:void(0)">
+                                <a class="btn btn-sm btn-link font-size-14 w-100 text-center" href="javascript:void(0)">
                                     View all
                                 </a>
                             </div>
@@ -318,14 +304,11 @@
                     </div>
 
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if (Auth::user()->foto)
-                                <img class="rounded-circle header-profile-user"
-                                    src="{{ Storage::url(Auth::user()->foto) }}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="{{ Storage::url(Auth::user()->foto) }}" alt="Header Avatar">
                             @else
-                                <img class="rounded-circle header-profile-user"
-                                    src="assets/images/users/default-user.jpg" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="assets/images/users/default-user.jpg" alt="Header Avatar">
                             @endif
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
@@ -335,17 +318,12 @@
                                 Profile
                             </a>
 
-                            <a class="dropdown-item" href="#"><i
-                                    class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i
-                                    class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span
-                                    class="badge bg-success ms-auto">11</span></a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"></i>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
+                            <a class="dropdown-item d-flex align-items-center" href="#"><i class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span class="badge bg-success ms-auto">11</span></a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"></i>
                                 Lock screen</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
-                                    class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i>
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i>
                                 Logout</a>
                         </div>
                     </div>
@@ -392,19 +370,19 @@
                 </div>
             </div>
         </div>
-<script>
-        function previewProfilePhoto(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const profilePhoto = document.getElementById('profilePhotoPreview');
-                    profilePhoto.src = e.target.result;
+        <script>
+            function previewProfilePhoto(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const profilePhoto = document.getElementById('profilePhotoPreview');
+                        profilePhoto.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
             }
-        }
-    </script>    
+        </script>
 
         <!-- ========== Left Sidebar Start ========== -->
         <div class="vertical-menu">
@@ -426,16 +404,16 @@
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-email-outline"></i>
                                     <span>{{ $value->nombre }}</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    @php
-                                        $subaccesos = DB::table('accesos')->where('tipo', 'subacceso')->get();
-                                    @endphp
-                                    @foreach ($subaccesos->where('idacceso', $value->id) as $s_value)
-                                        <li><a href="#">{{ $s_value->nombre }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            @php
+                            $subaccesos = DB::table('accesos')->where('tipo', 'subacceso')->get();
+                            @endphp
+                            @foreach ($subaccesos->where('idacceso', $value->id) as $s_value)
+                            <li><a href="#">{{ $s_value->nombre }}</a></li>
+                            @endforeach
+                        </ul>
+                        </li>
                         @endforeach --}}
 
 
@@ -475,14 +453,17 @@
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-shield-account"></i> <!-- Cambiado aquí -->
+                                <i class="mdi mdi-shield-account"></i> <!-- Icono para Accesos -->
                                 <span>Accesos</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('rol-accesos.index') }}">Crear Rol/Acceso</a></li>
                                 <li><a href="{{ route('gestion-rol-acceso.index') }}">Gestionar</a></li>
+                                <li><a href="{{ route('asignar-rol.index') }}">Asignar Rol
+                                    </a></li>
                             </ul>
                         </li>
+
 
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -574,21 +555,17 @@
             <div class="px-4 py-2">
                 <h6 class="mb-3">Select Custome Colors</h6>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-default"
-                        value="default" onchange="document.documentElement.setAttribute('data-theme-mode', 'default')"
-                        checked>
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-default" value="default" onchange="document.documentElement.setAttribute('data-theme-mode', 'default')" checked>
                     <label class="form-check-label" for="theme-default">Default</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-red"
-                        value="red" onchange="document.documentElement.setAttribute('data-theme-mode', 'red')">
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-red" value="red" onchange="document.documentElement.setAttribute('data-theme-mode', 'red')">
                     <label class="form-check-label" for="theme-red">Red</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-teal"
-                        value="teal" onchange="document.documentElement.setAttribute('data-theme-mode', 'teal')">
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-teal" value="teal" onchange="document.documentElement.setAttribute('data-theme-mode', 'teal')">
                     <label class="form-check-label" for="theme-teal">Teal</label>
                 </div>
             </div>
@@ -609,9 +586,7 @@
                     <img src="assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="">
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
-                        data-bsStyle="assets/css/bootstrap-dark.min.css"
-                        data-appStyle="assets/css/app-dark.min.html" />
+                    <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.html" />
                     <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -619,8 +594,7 @@
                     <img src="assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="">
                 </div>
                 <div class="form-check form-switch mb-5">
-                    <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch"
-                        data-appStyle="assets/css/app-rtl.min.css" />
+                    <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css" />
                     <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
                 </div>
 
