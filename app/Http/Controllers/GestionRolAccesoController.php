@@ -11,14 +11,7 @@ class GestionRolAccesoController extends Controller
 {
     public function index()
     {
-        $roles = Rol::all();
-        $accesos = Acceso::all();
-        return view('gestion-rol-acceso', compact('roles', 'accesos'));
-    }
-
-    public function create()
-    {
-        $roles = Rol::all();
+        $roles = Rol::with('accesos')->get();
         $accesos = Acceso::all();
         return view('gestion-rol-acceso', compact('roles', 'accesos'));
     }
@@ -30,16 +23,38 @@ class GestionRolAccesoController extends Controller
             'id_accesos' => 'required|array',
             'id_accesos.*' => 'exists:accesos,id',
         ]);
-    
-        // Encuentra el rol seleccionado
+
         $rol = Rol::findOrFail($request->id_rol);
-    
-        // Limpia los accesos existentes para este rol (opcional)
-        $rol->accesos()->sync([]);
-    
-        // Inserta los accesos seleccionados
         $rol->accesos()->sync($request->id_accesos);
-    
+
         return redirect()->route('gestion-rol-acceso.index')->with('success', 'Accesos y Roles gestionados correctamente.');
+    }
+
+    public function edit($id)
+    {
+        $rol = Rol::findOrFail($id);
+        $accesos = Acceso::all();
+        return view('editar-rol', compact('rol', 'accesos'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $rol = Rol::findOrFail($id);
+        $rol->nombre = $request->input('nombre');
+        $rol->save();
+
+        // Sincronizar accesos
+        $rol->accesos()->sync($request->input('id_accesos', []));
+
+        return redirect()->route('gestion-rol-acceso.index')->with('success', 'Rol actualizado con éxito.');
+    }
+
+
+    public function destroy($id)
+    {
+        $rol = Rol::findOrFail($id);
+        $rol->delete();
+
+        return redirect()->route('gestion-rol-acceso.index')->with('success', 'Rol eliminado correctamente.');
     }
 }
