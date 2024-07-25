@@ -10,7 +10,7 @@ use App\Http\Controllers\VisualizarMarcaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\RealizarCompraController;
 use App\Http\Controllers\RealizaventaController;
-use App\Http\Controllers\VentaController;   
+use App\Http\Controllers\VentaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -22,7 +22,7 @@ use App\Http\Controllers\RolAccesoController;
 use App\Http\Controllers\GestionRolAccesoController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TiendaController;
-
+use App\Http\Controllers\AsignarRolController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('sucursales', [TiendaController::class, 'index'])->name('sucursales.index');
     Route::get('ver-sucursales', [TiendaController::class, 'vistasucursales'])->name('versucursales');
-   
+
     Route::post('sucursales', [TiendaController::class, 'store'])->name('sucursales.store');
     Route::get('sucursales/show', [TiendaController::class, 'show'])->name('sucursales.show');
     Route::put('sucursales/{id}', [TiendaController::class, 'update'])->name('sucursales.update');
@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profile/update', [UsuariosController::class, 'update'])->name('profile.update');
 
+    Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
+    Route::post('/asignar-rol', [AsignarRolController::class, 'store'])->name('asignar-rol.store');
 
     // Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });
