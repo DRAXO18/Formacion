@@ -10,15 +10,16 @@ class RolAccesoController extends Controller
 {
     public function index()
     {
-        return view('rol-accesos');
-    }
-    // Mostrar el formulario para crear un nuevo rol y acceso
-    public function create()
-    {
-        return view('rol-accesos');
+        $accesos = Acceso::where('tipo', 'acceso')->get();
+        return view('rol-accesos', compact('accesos'));
     }
 
-    // Almacenar un nuevo rol
+    public function create()
+    {
+        $accesos = Acceso::where('tipo', 'acceso')->get();
+        return view('rol-accesos', compact('accesos'));
+    }
+
     public function storeRol(Request $request)
     {
         $request->validate([
@@ -45,25 +46,36 @@ class RolAccesoController extends Controller
         return redirect()->route('gestion-rol-acceso.index')->with('success', 'Rol creado con éxito.');
     }
 
-    // Almacenar un nuevo acceso
     public function storeAcceso(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'controlador' => 'required|string|max:255',
-            'tipo' => 'required|in:acceso,subacceso,opcion',
-        ]);
+{
+    // Validar los datos recibidos
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'controlador' => 'required|string|max:255',
+        'tipo' => 'required|in:acceso,subacceso,opcion',
+        'idacceso' => 'required_if:tipo,subacceso|exists:accesos,id',
+    ]);
 
-        Acceso::create([
-            'nombre' => $request->input('nombre'),
-            'controlador' => $request->input('controlador'),
-            'tipo' => $request->input('tipo'),
-        ]);
+    // Preparar los datos para la creación
+    $data = $request->only(['nombre', 'controlador', 'tipo']);
 
-        return redirect()->route('roles.create')->with('success', 'Acceso creado con éxito.');
+    // Incluir idacceso si el tipo es subacceso
+    if ($request->input('tipo') == 'subacceso') {
+        $data['idacceso'] = $request->input('idacceso');
+    } else {
+        // Asegúrate de que idacceso esté presente pero como NULL si no es subacceso
+        $data['idacceso'] = null;
     }
 
-    // Almacenar un nuevo acceso
+    // Crear el nuevo acceso
+    Acceso::create($data);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('roles.create')->with('success', 'Acceso creado con éxito.');
+}
+
+
+
     public function storeAccesoModal(Request $request)
     {
         $request->validate([
@@ -72,11 +84,16 @@ class RolAccesoController extends Controller
             'tipo' => 'required|in:acceso,subacceso,opcion',
         ]);
 
-        Acceso::create([
-            'nombre' => $request->input('nombre'),
-            'controlador' => $request->input('controlador'),
-            'tipo' => $request->input('tipo'),
-        ]);
+        $data = $request->only(['nombre', 'controlador', 'tipo']);
+
+        if ($request->input('tipo') == 'subacceso') {
+            $request->validate([
+                'parent_acceso' => 'required|exists:accesos,id',
+            ]);
+            $data['parent_acceso'] = $request->input('parent_acceso');
+        }
+
+        Acceso::create($data);
 
         return redirect()->route('gestion-rol-acceso.index')->with('success', 'Acceso creado con éxito.');
     }

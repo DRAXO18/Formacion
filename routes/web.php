@@ -96,7 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/reportesventas/buscar', [ReporteVentasController::class, 'buscar'])->name('reportes.ventas.buscar');
     Route::get('/ventas-por-mes', [ReporteVentasController::class, 'ventasPorMes'])->name('ventas.por_mes');
 
-    Route::post('/usuarios/update-foto', [UsuariosController::class, 'updateFoto'])->name('usuarios.updateFoto');
+    // Route::post('/usuarios/update-foto', [UsuariosController::class, 'updateFoto'])->name('usuarios.updateFoto');
 
     Route::get('/crear-rol-acceso', [RolAccesoController::class, 'index'])->name('rol-accesos.index');
     Route::post('store-rol', [RolAccesoController::class, 'storeRol'])->name('roles.store');
@@ -123,6 +123,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
     Route::post('/asignar-rol', [AsignarRolController::class, 'store'])->name('asignar-rol.store');
+    Route::post('/buscar-usuarios', [AsignarRolController::class, 'buscarUsuarios']);
+
+    Route::get('/gestion-rol-acceso', [GestionRolAccesoController::class, 'index'])->name('gestion-rol-acceso.index');
+    Route::post('/gestion-rol-acceso', [GestionRolAccesoController::class, 'store'])->name('gestion-rol-acceso.store');
+    Route::get('/gestion-rol-acceso/{id}/edit', [GestionRolAccesoController::class, 'edit'])->name('gestion-rol-acceso.edit');
+    Route::put('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'update'])->name('gestion-rol-acceso.update');
+    Route::delete('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'destroy'])->name('gestion-rol-acceso.destroy');
 
     // Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });

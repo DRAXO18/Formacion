@@ -37,8 +37,3 @@
 </div>
 
 {{-- Rutas --}}
-{{-- Route::get('/gestion-rol-acceso', [GestionRolAccesoController::class, 'index'])->name('gestion-rol-acceso.index');
-    Route::post('/gestion-rol-acceso', [GestionRolAccesoController::class, 'store'])->name('gestion-rol-acceso.store');
-    Route::get('/gestion-rol-acceso/{id}/edit', [GestionRolAccesoController::class, 'edit'])->name('gestion-rol-acceso.edit');
-    Route::put('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'update'])->name('gestion-rol-acceso.update');
-    Route::delete('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'destroy'])->name('gestion-rol-acceso.destroy'); --}}

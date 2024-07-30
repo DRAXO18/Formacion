@@ -15,8 +15,9 @@ class Acceso extends Model
     protected $fillable = [
         'nombre',
         'controlador',
-        'tipo',
+        'idacceso'
     ];
+
 
     public function roles()
     {
