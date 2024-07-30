@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Agrega la columna id_rol como una clave foránea
-            $table->unsignedBigInteger('id_rol')->nullable()->after('id'); // Puedes ajustar el método after() si es necesario
+            $table->unsignedBigInteger('id_rol')->nullable()->after('id');
             
             // Define la clave foránea
             $table->foreign('id_rol')->references('id')->on('roles')->onDelete('set null');

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<br><br><br><br><br>
-    <div class="container mt-4 " style="margin-left: 20%;">
+    <br><br><br><br><br>
+    <div class="container mt-4" style="margin-left: 20%;">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow-sm border-light">
@@ -46,6 +46,40 @@
                                     <form action="{{ route('accesos.store') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
+                                            <label for="tipo">Tipo</label>
+                                            <select name="tipo" id="tipo" class="form-control" required onchange="handleTipoChange(this)">
+                                                <option value="">Seleccionar Tipo</option>
+                                                <option value="acceso" {{ old('tipo') == 'acceso' ? 'selected' : '' }}>
+                                                    Acceso
+                                                </option>
+                                                <option value="subacceso" {{ old('tipo') == 'subacceso' ? 'selected' : '' }}>
+                                                    Subacceso
+                                                </option>
+                                                <option value="opcion" {{ old('tipo') == 'opcion' ? 'selected' : '' }}>
+                                                    Opción
+                                                </option>
+                                            </select>
+                                            @error('tipo')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div id="subacceso-select-container" class="form-group" style="display: none;">
+                                            <label for="idacceso">Acceso Padre</label>
+                                            <select name="idacceso" id="idacceso" class="form-control">
+                                                <option value="">Seleccionar Acceso</option>
+                                                @foreach($accesos as $acceso)
+                                                    <option value="{{ $acceso->id }}" {{ old('idacceso') == $acceso->id ? 'selected' : '' }}>
+                                                        {{ $acceso->nombre }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('idacceso')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="nombreAcceso">Nombre del Acceso</label>
                                             <input type="text" name="nombre" id="nombreAcceso" class="form-control"
                                                 value="{{ old('nombre') }}" required>
@@ -63,21 +97,6 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="tipo">Tipo</label>
-                                            <select name="tipo" id="tipo" class="form-control" required>
-                                                <option value="">Seleccionar Tipo</option>
-                                                <option value="acceso" {{ old('tipo') == 'acceso' ? 'selected' : '' }}>Acceso
-                                                </option>
-                                                <option value="subacceso" {{ old('tipo') == 'subacceso' ? 'selected' : '' }}>
-                                                    Subacceso</option>
-                                                <option value="opcion" {{ old('tipo') == 'opcion' ? 'selected' : '' }}>Opción
-                                                </option>
-                                            </select>
-                                            @error('tipo')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
                                         <br>
                                         <button type="submit" class="btn btn-primary">Guardar Acceso</button>
                                     </form>
@@ -89,37 +108,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            handleTipoChange(document.getElementById('tipo'));
+        });
+
+        function handleTipoChange(select) {
+            var subaccesoSelectContainer = document.getElementById('subacceso-select-container');
+            if (select.value === 'subacceso') {
+                subaccesoSelectContainer.style.display = 'block';
+            } else {
+                subaccesoSelectContainer.style.display = 'none';
+            }
+        }
+    </script>
 @endsection
-
-<style>
-    .card-header {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .card-body {
-        background-color: #f8f9fa;
-    }
-
-    .form-group label {
-        font-weight: 500;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-
-    .text-danger {
-        font-size: 0.875em;
-    }
-
-    .shadow-sm {
-        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
-    }
-</style>
