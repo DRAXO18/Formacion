@@ -15,7 +15,8 @@ class Acceso extends Model
     protected $fillable = [
         'nombre',
         'controlador',
-        'idacceso'
+        'idacceso',
+        'tipo'
     ];
 
 

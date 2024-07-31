@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('realizaventas/buscar-productos', [RealizaventaController::class, 'buscarProductos'])->name('realizaventas.buscarProductos');
     Route::post('realizaventas/guardar-venta', [RealizaventaController::class, 'guardarVenta'])->name('realizaventas.guardarVenta');
 
-    Route::get('/realizacompras', [RealizarCompraController::class, 'index'])->name('realizacompras.index');
+    Route::get('/realizacompras', [RealizarCompraController::class, 'index'])->name('realizacompras.index'); 
     Route::post('/realizacompras', [RealizarCompraController::class, 'guardarCompra'])->name('realizacompras.guardarCompra');
     Route::get('/realizacompras/buscarProductos', [RealizarCompraController::class, 'buscarProductos'])->name('realizacompras.buscarProductos');
     Route::get('/realizacompras/buscarUsuarios', [RealizarCompraController::class, 'buscarProveedores'])->name('realizacompras.buscarProveedores');

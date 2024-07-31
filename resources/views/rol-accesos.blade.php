@@ -63,7 +63,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-
+                                        
                                         <div id="subacceso-select-container" class="form-group" style="display: none;">
                                             <label for="idacceso">Acceso Padre</label>
                                             <select name="idacceso" id="idacceso" class="form-control">
@@ -78,6 +78,7 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        
 
                                         <div class="form-group">
                                             <label for="nombreAcceso">Nombre del Acceso</label>
@@ -111,16 +112,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            handleTipoChange(document.getElementById('tipo'));
-        });
+    // Inicializar la visibilidad del contenedor según el valor actual del select
+    handleTipoChange(document.getElementById('tipo'));
+});
 
-        function handleTipoChange(select) {
-            var subaccesoSelectContainer = document.getElementById('subacceso-select-container');
-            if (select.value === 'subacceso') {
-                subaccesoSelectContainer.style.display = 'block';
-            } else {
-                subaccesoSelectContainer.style.display = 'none';
-            }
-        }
+function handleTipoChange(select) {
+    // Obtener el contenedor del select idacceso
+    var subaccesoSelectContainer = document.getElementById('subacceso-select-container');
+    
+    // Mostrar el contenedor solo si el valor seleccionado es 'subacceso'
+    if (select.value === 'subacceso') {
+        subaccesoSelectContainer.style.display = 'block';
+    } else {
+        subaccesoSelectContainer.style.display = 'none';
+    }
+}
     </script>
 @endsection

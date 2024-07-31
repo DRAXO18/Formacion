@@ -99,13 +99,15 @@
                         </a>
                     </div>
 
-                    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
+                    <button type="button"
+                        class="btn btn-sm px-3 font-size-24 header-item waves-effect vertical-menu-btn">
                         <i class="mdi mdi-menu"></i>
                     </button>
 
                     <div class="d-none d-sm-block">
                         <div class="dropdown dropdown-topbar pt-3 mt-1 d-inline-block">
-                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Create <i class="mdi mdi-chevron-down"></i>
                             </a>
 
@@ -131,17 +133,22 @@
                     </form>
 
                     <div class="dropdown d-inline-block d-lg-none ms-2">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                            id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             <i class="mdi mdi-magnify"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="page-header-search-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+                            aria-labelledby="page-header-search-dropdown">
 
                             <form class="p-3">
                                 <div class="form-group m-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                            aria-label="Recipient's username">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                            <button class="btn btn-primary" type="submit"><i
+                                                    class="mdi mdi-magnify"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -152,50 +159,61 @@
 
 
                     <div class="dropdown d-none d-md-block ms-2">
-                        <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="me-2" src="assets/images/flags/us_flag.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
+                        <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img class="me-2" src="assets/images/flags/us_flag.jpg" alt="Header Language"
+                                height="16"> English <span class="mdi mdi-chevron-down"></span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
+                                <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="me-1"
+                                    height="12"> <span class="align-middle"> German </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/italy_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
+                                <img src="assets/images/flags/italy_flag.jpg" alt="user-image" class="me-1"
+                                    height="12"> <span class="align-middle"> Italian </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/french_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
+                                <img src="assets/images/flags/french_flag.jpg" alt="user-image" class="me-1"
+                                    height="12"> <span class="align-middle"> French </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/spain_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
+                                <img src="assets/images/flags/spain_flag.jpg" alt="user-image" class="me-1"
+                                    height="12"> <span class="align-middle"> Spanish </span>
                             </a>
 
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="assets/images/flags/russia_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
+                                <img src="assets/images/flags/russia_flag.jpg" alt="user-image" class="me-1"
+                                    height="12"> <span class="align-middle"> Russian </span>
                             </a>
                         </div>
                     </div>
 
                     <div class="dropdown d-none d-lg-inline-block">
-                        <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                            data-toggle="fullscreen">
                             <i class="mdi mdi-fullscreen font-size-24"></i>
                         </button>
                     </div>
 
                     <div class="dropdown d-inline-block ms-1">
-                        <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             <i class="ti-bell"></i>
                             <span class="badge text-bg-danger rounded-pill">3</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
                             <div class="p-3">
                                 <div class="row align-items-center">
                                     <div class="col">
@@ -296,7 +314,8 @@
                                 </a>
                             </div>
                             <div class="p-2 border-top">
-                                <a class="btn btn-sm btn-link font-size-14 w-100 text-center" href="javascript:void(0)">
+                                <a class="btn btn-sm btn-link font-size-14 w-100 text-center"
+                                    href="javascript:void(0)">
                                     View all
                                 </a>
                             </div>
@@ -304,26 +323,35 @@
                     </div>
 
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if (Auth::user()->foto)
-                            <img class="rounded-circle header-profile-user" src="{{ Storage::url(Auth::user()->foto) }}" alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user"
+                                    src="{{ Storage::url(Auth::user()->foto) }}" alt="Header Avatar">
                             @else
-                            <img class="rounded-circle header-profile-user" src="assets/images/users/default-user.jpg" alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user"
+                                    src="assets/images/users/default-user.jpg" alt="Header Avatar">
                             @endif
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#profileModal">
                                 <i class="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"></i>
                                 Profile
                             </a>
 
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span class="badge bg-success ms-auto">11</span></a>
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"></i>
+                            <a class="dropdown-item" href="#"><i
+                                    class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
+                            <a class="dropdown-item d-flex align-items-center" href="#"><i
+                                    class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span
+                                    class="badge bg-success ms-auto">11</span></a>
+                            <a class="dropdown-item" href="#"><i
+                                    class="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"></i>
                                 Lock screen</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i>
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
+                                    class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i>
                                 Logout</a>
                         </div>
                     </div>
@@ -338,31 +366,38 @@
         </header>
 
         <!-- Modal -->
-        <div class="modal fade modal-right" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal fade modal-right" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content border-0 shadow-lg">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="profileModalLabel">Editar Perfil</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="profileForm" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                        <form id="profileForm" method="POST" action="{{ route('profile.update') }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="profile-picture-container">
-                                <img src="{{ Storage::url(Auth::user()->foto) }}" alt="Foto de Perfil" id="profilePhotoPreview">
+                                <img src="{{ Storage::url(Auth::user()->foto) }}" alt="Foto de Perfil"
+                                    id="profilePhotoPreview">
                                 <label for="profile_photo" class="edit-icon">
                                     <i class="mdi mdi-pencil"></i>
                                 </label>
-                                <input type="file" id="profile_photo" name="foto" style="display: none;" onchange="previewProfilePhoto(event)">
+                                <input type="file" id="profile_photo" name="foto" style="display: none;"
+                                    onchange="previewProfilePhoto(event)">
                             </div>
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="first_name" name="nombre" value="{{ Auth::user()->nombre }}" required>
+                                <input type="text" class="form-control" id="first_name" name="nombre"
+                                    value="{{ Auth::user()->nombre }}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="last_name" name="apellido" value="{{ Auth::user()->apellido }}" required>
+                                <input type="text" class="form-control" id="last_name" name="apellido"
+                                    value="{{ Auth::user()->apellido }}" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         </form>
@@ -396,25 +431,38 @@
 
                         {{-- @php
                             $id_usersession = Auth::user()->id;
-                            // DB::table('permiso_acceso')->get();
-                            $accesos = DB::table('accesos')->where('tipo', 'acceso')->get();
+
+                            // Obtener el ID del rol del usuario
+                            $userRole = DB::table('users')->where('id', $id_usersession)->value('id_rol');
+
+                            // Obtener los permisos de acceso para el rol del usuario
+                            $permisos = DB::table('permiso_acceso')->where('id_rol', $userRole)->pluck('id_acceso');
+
+                            // Obtener accesos permitidos
+                            $accesos = DB::table('accesos')->whereIn('id', $permisos)->where('tipo', 'acceso')->get();
                         @endphp
                         @foreach ($accesos as $value)
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="mdi mdi-email-outline"></i>
-                                    <span>{{ $value->nombre }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            @php
-                            $subaccesos = DB::table('accesos')->where('tipo', 'subacceso')->get();
-                            @endphp
-                            @foreach ($subaccesos->where('idacceso', $value->id) as $s_value)
-                            <li><a href="#">{{ $s_value->nombre }}</a></li>
-                            @endforeach
-                        </ul>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-email-outline"></i>
+                                <span>{{ $value->nombre }}</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                @php
+                                    // Obtener subaccesos permitidos para el acceso actual
+                                    $subaccesos = DB::table('accesos')
+                                        ->where('tipo', 'subacceso')
+                                        ->where('idacceso', $value->id)
+                                        ->whereIn('id', $permisos)
+                                        ->get();
+                                @endphp
+                                @foreach ($subaccesos as $s_value)
+                                    <li><a href="{{ route($s_value->controlador) }}">{{ $s_value->nombre }}</a></li>
+                                @endforeach
+                            </ul>
                         </li>
-                        @endforeach --}}
+                    @endforeach --}}
+
 
 
                         <li>
@@ -555,17 +603,21 @@
             <div class="px-4 py-2">
                 <h6 class="mb-3">Select Custome Colors</h6>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-default" value="default" onchange="document.documentElement.setAttribute('data-theme-mode', 'default')" checked>
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-default"
+                        value="default" onchange="document.documentElement.setAttribute('data-theme-mode', 'default')"
+                        checked>
                     <label class="form-check-label" for="theme-default">Default</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-red" value="red" onchange="document.documentElement.setAttribute('data-theme-mode', 'red')">
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-red"
+                        value="red" onchange="document.documentElement.setAttribute('data-theme-mode', 'red')">
                     <label class="form-check-label" for="theme-red">Red</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-teal" value="teal" onchange="document.documentElement.setAttribute('data-theme-mode', 'teal')">
+                    <input class="form-check-input theme-color" type="radio" name="theme-mode" id="theme-teal"
+                        value="teal" onchange="document.documentElement.setAttribute('data-theme-mode', 'teal')">
                     <label class="form-check-label" for="theme-teal">Teal</label>
                 </div>
             </div>
@@ -586,7 +638,9 @@
                     <img src="assets/images/layouts/layout-2.jpg" class="img-thumbnail" alt="">
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.html" />
+                    <input type="checkbox" class="form-check-input theme-choice" id="dark-mode-switch"
+                        data-bsStyle="assets/css/bootstrap-dark.min.css"
+                        data-appStyle="assets/css/app-dark.min.html" />
                     <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -594,7 +648,8 @@
                     <img src="assets/images/layouts/layout-3.jpg" class="img-thumbnail" alt="">
                 </div>
                 <div class="form-check form-switch mb-5">
-                    <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css" />
+                    <input type="checkbox" class="form-check-input theme-choice" id="rtl-mode-switch"
+                        data-appStyle="assets/css/app-rtl.min.css" />
                     <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
                 </div>
 
