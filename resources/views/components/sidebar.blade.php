@@ -60,7 +60,7 @@
         }
 
         .edit-icon i {
-            font-size: 20px;
+            font-size: 25px;
             color: #000;
         }
     </style>
@@ -370,9 +370,9 @@
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content border-0 shadow-lg">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header bg-dark text-white">
                         <h5 class="modal-title" id="profileModalLabel">Editar Perfil</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        <button type="button" class="btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -399,7 +399,7 @@
                                 <input type="text" class="form-control" id="last_name" name="apellido"
                                     value="{{ Auth::user()->apellido }}" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="submit" class="btn btn-dark">Guardar Cambios</button>
                         </form>
                     </div>
                 </div>
