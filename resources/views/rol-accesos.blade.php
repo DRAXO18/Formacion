@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow-sm border-light">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-dark text-white">
                         <h3 class="mb-0">Gestión de Roles y Accesos</h3>
                     </div>
                     <div class="card-body">
@@ -14,7 +14,7 @@
                             <!-- Formulario para crear nuevo rol -->
                             <div class="col-md-6 mb-4">
                                 <div class="border p-4 rounded bg-light shadow-sm">
-                                    <h4 class="mb-4 text-primary">Crear Nuevo Rol</h4>
+                                    <h4 class="mb-4 text-dark">Crear Nuevo Rol</h4>
 
                                     @if (session('success'))
                                         <div class="alert alert-success">
@@ -33,7 +33,7 @@
                                             @enderror
                                         </div>
                                         <br>
-                                        <button type="submit" class="btn btn-primary">Guardar Rol</button>
+                                        <button type="submit" class="btn btn-dark">Guardar Rol</button>
                                     </form>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                             <!-- Formulario para crear nuevo acceso -->
                             <div class="col-md-6 mb-4">
                                 <div class="border p-4 rounded bg-light shadow-sm">
-                                    <h4 class="mb-4 text-primary">Crear Nuevo Acceso</h4>
+                                    <h4 class="mb-4 text-dark">Crear Nuevo Acceso</h4>
 
                                     <form action="{{ route('accesos.store') }}" method="POST">
                                         @csrf
@@ -99,7 +99,7 @@
                                         </div>
 
                                         <br>
-                                        <button type="submit" class="btn btn-primary">Guardar Acceso</button>
+                                        <button type="submit" class="btn btn-dark">Guardar Acceso</button>
                                     </form>
                                 </div>
                             </div>

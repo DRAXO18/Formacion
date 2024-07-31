@@ -6,7 +6,7 @@
         <div class="page-content">
             <div class="container-fluid">
                 <!-- start page title -->
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-sm-4">
                         <div class="page-title-box">
                             <h4 class="text-primary">Stock</h4>
@@ -17,9 +17,9 @@
                             </ol>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="container">
-                    <h2 class="mb-4 text-center text-primary">Gestión de Stock</h2>
+                    <h2 class="mb-4 text-center text-dark">Gestión de Stock</h2>
                     <div class="row mb-3">
                         {{-- <div class="col-md-6">
                             <div class="input-group">

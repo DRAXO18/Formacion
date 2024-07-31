@@ -13,7 +13,6 @@ class GestionRolAccesoController extends Controller
     {
         $roles = Rol::with('accesos')->get();
         $accesos = Acceso::all();
-        $accesos = Acceso::where('tipo', 'acceso')->get();
         return view('gestion-rol-acceso', compact('roles', 'accesos'));
     }
 

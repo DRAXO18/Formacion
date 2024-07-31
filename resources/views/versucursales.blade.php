@@ -56,13 +56,16 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $tienda->id }}">Editar</button>
-                                                    <form action="{{ route('sucursales.destroy', $tienda->id) }}" method="POST" style="display:inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta tienda?')">Eliminar</button>
-                                                    </form>
-                                                </td>
+                                                    <div class="d-flex flex-column gap-2">
+                                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $tienda->id }}">Editar</button>
+                                                
+                                                        <form action="{{ route('sucursales.destroy', $tienda->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta tienda?')">Eliminar</button>
+                                                        </form>
+                                                    </div>
+                                                </td>                                                
                                             </tr>
                                             <!-- Edit Modal -->
                                             <div class="modal fade" id="editModal{{ $tienda->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $tienda->id }}" aria-hidden="true">

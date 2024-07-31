@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow-sm border-light">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-dark text-white">
                     <h3 class="mb-0">Gestión de Roles y Accesos</h3>
                 </div>
                 <div class="card-body">

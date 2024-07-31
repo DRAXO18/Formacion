@@ -13,8 +13,11 @@ class TiendaController extends Controller
     public function index()
     {
         $ubigeos = Ubigeo::all();
+        
         return view('sucursales', compact('ubigeos'));
     }
+
+    
     
     public function vistasucursales()
     {

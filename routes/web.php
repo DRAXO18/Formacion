@@ -1,28 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\AgregarController;
-use App\Http\Controllers\AñadirusuarioController;
-use App\Http\Controllers\MarcaController;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\VisualizarMarcaController;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\RealizarCompraController;
-use App\Http\Controllers\RealizaventaController;
-use App\Http\Controllers\VentaController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\UsuariosController;
-use App\Http\Controllers\StockController;
-use App\Http\Controllers\ReporteVentasController;
-use App\Http\Controllers\HistorialController;
-use App\Http\Controllers\RolAccesoController;
-use App\Http\Controllers\GestionRolAccesoController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\TiendaController;
-use App\Http\Controllers\AsignarRolController;
+use App\Http\Controllers\{
+    ProductoController, AgregarController, AñadirusuarioController, MarcaController,
+    ChatController, VisualizarMarcaController, ClienteController, RealizarCompraController,
+    RealizaventaController, VentaController, Auth\LoginController, Auth\RegisterController,
+    Auth\AuthenticatedSessionController, UsuariosController, StockController, ReporteVentasController,
+    HistorialController, RolAccesoController, GestionRolAccesoController, NotificationController,
+    TiendaController, AsignarRolController
+};
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
