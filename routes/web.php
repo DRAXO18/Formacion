@@ -1,14 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    ProductoController, AgregarController, AñadirusuarioController, MarcaController,
-    ChatController, VisualizarMarcaController, ClienteController, RealizarCompraController,
-    RealizaventaController, VentaController, Auth\LoginController, Auth\RegisterController,
-    Auth\AuthenticatedSessionController, UsuariosController, StockController, ReporteVentasController,
-    HistorialController, RolAccesoController, GestionRolAccesoController, NotificationController,
-    TiendaController, AsignarRolController
-};
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\AgregarController;
+use App\Http\Controllers\AñadirusuarioController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\VisualizarMarcaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\RealizarCompraController;
+use App\Http\Controllers\RealizaventaController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\ReporteVentasController;
+use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\RolAccesoController;
+use App\Http\Controllers\GestionRolAccesoController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\AsignarRolController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -30,92 +44,149 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/productos', [ProductoController::class, 'index'])->name('producto');
-    Route::post('/productos', [ProductoController::class, 'store'])->name('productos.store');
-    Route::get('/productos/{id}', [ProductoController::class, 'show'])->name('productos.show');
-    Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('productos.update');
-    Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+    $productoRoutes = [
+        ['method' => 'get', 'uri' => '/productos', 'action' => 'index', 'name' => 'producto'],
+        ['method' => 'post', 'uri' => '/productos', 'action' => 'store', 'name' => 'productos.store'],
+        ['method' => 'get', 'uri' => '/productos/{id}', 'action' => 'show', 'name' => 'productos.show'],
+        ['method' => 'put', 'uri' => '/productos/{id}', 'action' => 'update', 'name' => 'productos.update'],
+        ['method' => 'delete', 'uri' => '/productos/{id}', 'action' => 'destroy', 'name' => 'productos.destroy'],
+    ];
+
+    // Iterar sobre el arreglo para definir las rutas
+    foreach ($productoRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [ProductoController::class, $route['action']])->name($route['name']);
+    }
 
     Route::get('/agregar', [AgregarController::class, 'index'])->name('agregar');
-    Route::get('/marca', [MarcaController::class, 'create'])->name('marca');
-    Route::post('/marca', [MarcaController::class, 'store'])->name('marcas.store');
-    Route::put('/marcas/{id}', [MarcaController::class, 'update'])->name('marcas.update');
 
-    Route::get('/marcas', [MarcaController::class, 'index'])->name('marcas.index');
-    Route::get('/marcas/{id}', [MarcaController::class, 'show'])->name('marcas.show');
+    // Rutas de MarcaController
+    $marcaRoutes = [
+        ['method' => 'get', 'uri' => '/marca', 'action' => 'create', 'name' => 'marca'],
+        ['method' => 'post', 'uri' => '/marca', 'action' => 'store', 'name' => 'marcas.store'],
+        ['method' => 'put', 'uri' => '/marcas/{id}', 'action' => 'update', 'name' => 'marcas.update'],
+        ['method' => 'get', 'uri' => '/marcas', 'action' => 'index', 'name' => 'marcas.index'],
+        ['method' => 'get', 'uri' => '/marcas/{id}', 'action' => 'show', 'name' => 'marcas.show'],
+    ];
+    foreach ($marcaRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [MarcaController::class, $route['action']])->name($route['name']);
+    }
 
+    // Rutas de UsuariosController
+    $usuarioRoutes = [
+        ['method' => 'get', 'uri' => '/usuarios', 'action' => 'index', 'name' => 'usuarios.index'],
+        ['method' => 'get', 'uri' => '/usuarios/create', 'action' => 'create', 'name' => 'usuarios.create'],
+        ['method' => 'post', 'uri' => '/usuarios', 'action' => 'store', 'name' => 'usuarios.store'],
+        ['method' => 'post', 'uri' => '/usuarios/update-foto', 'action' => 'updateFoto', 'name' => 'usuarios.updateFoto'],
+        ['method' => 'put', 'uri' => '/profile/update', 'action' => 'update', 'name' => 'profile.update'],
+    ];
+    foreach ($usuarioRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [UsuariosController::class, $route['action']])->name($route['name']);
+    }
 
-    Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
-    Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
-    Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
-
+    // Rutas de VisualizarMarcaController
     Route::get('/visualizarmarca', [VisualizarMarcaController::class, 'index'])->name('visualizarmarca');
+
+    // Rutas de AñadirusuarioController
     Route::get('/Añadirususario', [AñadirusuarioController::class, 'index'])->name('Añadirusuario');
-    Route::get('/realizaventas', [RealizaventaController::class, 'index'])->name('realizaventas');
+
+    // Rutas de RealizaventaController
+    $realizaVentaRoutes = [
+        ['method' => 'get', 'uri' => 'realizaventas', 'action' => 'index', 'name' => 'realizaventas'],
+        ['method' => 'get', 'uri' => 'realizaventas/buscar-usuarios', 'action' => 'buscarUsuarios', 'name' => 'realizaventas.buscarUsuarios'],
+        ['method' => 'get', 'uri' => 'realizaventas/buscar-productos', 'action' => 'buscarProductos', 'name' => 'realizaventas.buscarProductos'],
+        ['method' => 'post', 'uri' => 'realizaventas/guardar-venta', 'action' => 'guardarVenta', 'name' => 'realizaventas.guardarVenta'],
+    ];
+    foreach ($realizaVentaRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [RealizaventaController::class, $route['action']])->name($route['name']);
+    }
+
+    // Rutas de RealizarCompraController
+    $realizaCompraRoutes = [
+        ['method' => 'get', 'uri' => '/realizacompras', 'action' => 'index', 'name' => 'realizacompras.index'],
+        ['method' => 'post', 'uri' => '/realizacompras', 'action' => 'guardarCompra', 'name' => 'realizacompras.guardarCompra'],
+        ['method' => 'get', 'uri' => '/realizacompras/buscarProductos', 'action' => 'buscarProductos', 'name' => 'realizacompras.buscarProductos'],
+        ['method' => 'get', 'uri' => '/realizacompras/buscarUsuarios', 'action' => 'buscarProveedores', 'name' => 'realizacompras.buscarProveedores'],
+        ['method' => 'post', 'uri' => '/realizacompras/store', 'action' => 'store', 'name' => 'realizacompras.store'],
+    ];
+    foreach ($realizaCompraRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [RealizarCompraController::class, $route['action']])->name($route['name']);
+    }
+
+    // Rutas de HistorialController
+    $historialRoutes = [
+        ['method' => 'get', 'uri' => '/historial', 'action' => 'index', 'name' => 'historial.index'],
+        ['method' => 'get', 'uri' => 'historial/detalles/{id}', 'action' => 'detalles', 'name' => 'historial.detalles'],
+        ['method' => 'get', 'uri' => '/historial/filtrar', 'action' => 'filtrar', 'name' => 'historial.filtrar'],
+    ];
+    foreach ($historialRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [HistorialController::class, $route['action']])->name($route['name']);
+    }
+
+    // Rutas de StockController
+    $stockRoutes = [
+        ['method' => 'get', 'uri' => '/stock', 'action' => 'index', 'name' => 'operacionesstock.index'],
+        ['method' => 'post', 'uri' => '/operacionesstock/update', 'action' => 'update', 'name' => 'operacionesstock.update'],
+        ['method' => 'get', 'uri' => '/productos/search', 'action' => 'search', 'name' => 'productos.search'],
+        ['method' => 'get', 'uri' => '/operacionesstock/search', 'action' => 'search', 'name' => 'operacionesstock.search'],
+        ['method' => 'post', 'uri' => '/operacionesstock/update', 'action' => 'update', 'name' => 'operacionesstock.update'],
+    ];
+    foreach ($stockRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [StockController::class, $route['action']])->name($route['name']);
+    }
+
+    // Rutas de ReporteVentasController
+    $reporteVentasRoutes = [
+        ['method' => 'get', 'uri' => '/reportesventas', 'action' => 'index', 'name' => 'reporteventas'],
+        ['method' => 'post', 'uri' => '/reportesventas/filtrar', 'action' => 'filtrar', 'name' => 'reportes.ventas.filtrar'],
+        ['method' => 'post', 'uri' => '/reportesventas/buscar', 'action' => 'buscar', 'name' => 'reportes.ventas.buscar'],
+        ['method' => 'get', 'uri' => '/ventas-por-mes', 'action' => 'ventasPorMes', 'name' => 'ventas.por_mes'],
+    ];
+    foreach ($reporteVentasRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [ReporteVentasController::class, $route['action']])->name($route['name']);
+    }
+
+    // Rutas de RolAccesoController
+    $rolAccesoRoutes = [
+        ['method' => 'get', 'uri' => '/crear-rol-acceso', 'action' => 'index', 'name' => 'rol-accesos.index'],
+        ['method' => 'post', 'uri' => 'store-rol', 'action' => 'storeRol', 'name' => 'roles.store'],
+        ['method' => 'get', 'uri' => 'create', 'action' => 'create', 'name' => 'roles.create'],
+        ['method' => 'post', 'uri' => 'store-acceso', 'action' => 'storeAcceso', 'name' => 'accesos.store'],
+        ['method' => 'post', 'uri' => 'store-rol-modal', 'action' => 'storeRolModal', 'name' => 'rolesModal.store'],
+        ['method' => 'post', 'uri' => 'store-acceso-modal', 'action' => 'storeAccesoModal', 'name' => 'accesosModal.store'],
+    ];
+
+    foreach ($rolAccesoRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [RolAccesoController::class, $route['action']])->name($route['name']);
+    }
+
+    $gestionRolAccesoRoutes = [
+        ['method' => 'get', 'uri' => '/gestion-rol-acceso', 'action' => 'index', 'name' => 'gestion-rol-acceso.index'],
+        ['method' => 'get', 'uri' => 'create-gestion', 'action' => 'create', 'name' => 'gestion-rol-acceso.create'],
+        ['method' => 'post', 'uri' => 'store-gestion', 'action' => 'store', 'name' => 'gestion-rol-acceso.store'],
+        ['method' => 'delete', 'uri' => 'destroy/{id}', 'action' => 'destroy', 'name' => 'gestion-rol-acceso.destroy'],
+        ['method' => 'put', 'uri' => 'update/{id}', 'action' => 'update', 'name' => 'gestion-rol-acceso.update']
 
 
-    Route::get('realizaventas', [RealizaventaController::class, 'index'])->name('realizaventas');
-    Route::get('realizaventas/buscar-usuarios', [RealizaventaController::class, 'buscarUsuarios'])->name('realizaventas.buscarUsuarios');
-    Route::get('realizaventas/buscar-productos', [RealizaventaController::class, 'buscarProductos'])->name('realizaventas.buscarProductos');
-    Route::post('realizaventas/guardar-venta', [RealizaventaController::class, 'guardarVenta'])->name('realizaventas.guardarVenta');
+    ];
+    foreach ($gestionRolAccesoRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [GestionRolAccesoController::class, $route['action']])->name($route['name']);
+    }
 
-    Route::get('/realizacompras', [RealizarCompraController::class, 'index'])->name('realizacompras.index'); 
-    Route::post('/realizacompras', [RealizarCompraController::class, 'guardarCompra'])->name('realizacompras.guardarCompra');
-    Route::get('/realizacompras/buscarProductos', [RealizarCompraController::class, 'buscarProductos'])->name('realizacompras.buscarProductos');
-    Route::get('/realizacompras/buscarUsuarios', [RealizarCompraController::class, 'buscarProveedores'])->name('realizacompras.buscarProveedores');
+    // Rutas de TiendaController
+    $tiendaRoutes = [
+        ['method' => 'get', 'uri' => 'sucursales', 'action' => 'index', 'name' => 'sucursales.index'],
+        ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'vistasucursales', 'name' => 'versucursales'],
+        ['method' => 'post', 'uri' => 'sucursales', 'action' => 'store', 'name' => 'sucursales.store'],
+        ['method' => 'get', 'uri' => 'sucursales/show', 'action' => 'show', 'name' => 'sucursales.show'],
+        ['method' => 'put', 'uri' => 'sucursales/{id}', 'action' => 'update', 'name' => 'sucursales.update'],
+        ['method' => 'delete', 'uri' => 'sucursales/{id}', 'action' => 'destroy', 'name' => 'sucursales.destroy'],
+        ['method' => 'get', 'uri' => 'ubigeo/{id}', 'action' => 'getUbigeo', 'name' => 'ubigeo.get'],
+    ];
+    foreach ($tiendaRoutes as $route) {
+        Route::{$route['method']}($route['uri'], [TiendaController::class, $route['action']])->name($route['name']);
+    }
 
-    Route::post('/realizacompras/store', [RealizarCompraController::class, 'store'])->name('realizacompras.store');
-
-    Route::get('/stock', [StockController::class, 'index'])->name('operacionesstock.index');
-
-    Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index');
-    Route::get('historial/detalles/{id}', [HistorialController::class, 'detalles'])->name('historial.detalles');
-    Route::get('/historial/filtrar', [HistorialController::class, 'filtrar'])->name('historial.filtrar');
-
-    Route::post('/operacionesstock/update', [StockController::class, 'update'])->name('operacionesstock.update');
-    Route::get('/productos/search', [StockController::class, 'search'])->name('productos.search');
-    Route::get('/operacionesstock/search', [StockController::class, 'search'])->name('operacionesstock.search');
-    Route::post('/operacionesstock/update', [StockController::class, 'update'])->name('operacionesstock.update');
-
-    Route::get('/reportesventas', [ReporteVentasController::class, 'index'])->name('reporteventas');
-    Route::post('/reportesventas/filtrar', [ReporteVentasController::class, 'filtrar'])->name('reportes.ventas.filtrar');
-    Route::post('/reportesventas/buscar', [ReporteVentasController::class, 'buscar'])->name('reportes.ventas.buscar');
-    Route::get('/ventas-por-mes', [ReporteVentasController::class, 'ventasPorMes'])->name('ventas.por_mes');
-
-    // Route::post('/usuarios/update-foto', [UsuariosController::class, 'updateFoto'])->name('usuarios.updateFoto');
-
-    Route::get('/crear-rol-acceso', [RolAccesoController::class, 'index'])->name('rol-accesos.index');
-    Route::post('store-rol', [RolAccesoController::class, 'storeRol'])->name('roles.store');
-    Route::get('create', [RolAccesoController::class, 'create'])->name('roles.create');
-    Route::post('store-acceso', [RolAccesoController::class, 'storeAcceso'])->name('accesos.store');
-
-    Route::post('store-rol-modal', [RolAccesoController::class, 'storeRolModal'])->name('rolesModal.store');
-    Route::post('store-acceso-modal', [RolAccesoController::class, 'storeAccesoModal'])->name('accesosModal.store');
-
-    Route::get('/gestion-rol-acceso', [GestionRolAccesoController::class, 'index'])->name('gestion-rol-acceso.index');
-    Route::get('create-gestion', [GestionRolAccesoController::class, 'create'])->name('gestion-rol-acceso.create');
-    Route::post('store-gestion', [GestionRolAccesoController::class, 'store'])->name('gestion-rol-acceso.store');
-
-    Route::get('sucursales', [TiendaController::class, 'index'])->name('sucursales.index');
-    Route::get('ver-sucursales', [TiendaController::class, 'vistasucursales'])->name('versucursales');
-
-    Route::post('sucursales', [TiendaController::class, 'store'])->name('sucursales.store');
-    Route::get('sucursales/show', [TiendaController::class, 'show'])->name('sucursales.show');
-    Route::put('sucursales/{id}', [TiendaController::class, 'update'])->name('sucursales.update');
-    Route::delete('sucursales/{id}', [TiendaController::class, 'destroy'])->name('sucursales.destroy');
-    Route::get('ubigeo/{id}', [TiendaController::class, 'getUbigeo']);
-
-    Route::put('/profile/update', [UsuariosController::class, 'update'])->name('profile.update');
-
+    // Rutas de AsignarRolController
     Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
     Route::post('/asignar-rol', [AsignarRolController::class, 'store'])->name('asignar-rol.store');
-    Route::post('/buscar-usuarios', [AsignarRolController::class, 'buscarUsuarios']);
-
-    Route::get('/gestion-rol-acceso', [GestionRolAccesoController::class, 'index'])->name('gestion-rol-acceso.index');
-    Route::post('/gestion-rol-acceso', [GestionRolAccesoController::class, 'store'])->name('gestion-rol-acceso.store');
-    Route::get('/gestion-rol-acceso/{id}/edit', [GestionRolAccesoController::class, 'edit'])->name('gestion-rol-acceso.edit');
-    Route::put('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'update'])->name('gestion-rol-acceso.update');
-    Route::delete('/gestion-rol-acceso/{id}', [GestionRolAccesoController::class, 'destroy'])->name('gestion-rol-acceso.destroy');
-
-    // Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });
