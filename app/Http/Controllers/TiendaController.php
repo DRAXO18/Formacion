@@ -55,7 +55,7 @@ class TiendaController extends Controller
         $request->validate([
             'nombre_tienda' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
-            'id_ubigeo' => 'nullable|exists:ubigeos,id', // Asegúrate de que el nombre del campo coincida con el de tu base de datos
+            'id_ubigeo' => 'nullable|exists:ubigeo,id', // Asegúrate de que el nombre del campo coincida con el de tu base de datos
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
         ]);
 
