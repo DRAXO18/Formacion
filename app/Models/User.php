@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class, 'id_rol');
     }
 
+    public function billetera()
+{
+    return $this->hasOne(Billetera::class);
+}
+
     /**
      * Verificar si el usuario tiene acceso a un permiso específico.
      */

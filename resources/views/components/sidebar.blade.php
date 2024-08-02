@@ -124,14 +124,110 @@
 
                 <div class="d-flex">
 
-                    <!-- App Search-->
+                    <!-- App Search -->
                     <form class="app-search d-none d-lg-block">
                         <div class="position-relative">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search..."
+                                oninput="filterResults()">
                             <span class="fa fa-search"></span>
+                            <ul id="search-results" class="list-group position-absolute mt-1 w-100"
+                                style="display: none;">
+                                <!-- Resultados de búsqueda -->
+                            </ul>
                         </div>
                     </form>
 
+                    <script>
+                        // Lista de vistas y rutas con organización por menús
+                        const menuStructure = {
+                            Productos: [
+                                { name: 'Agregar Producto', route: '/agregar' },
+                                { name: 'Operaciones Producto', route: '/productos' },
+                            ],
+                            Marca: [
+                                { name: 'Agregar Marca', route: '/marca' },
+                            ],
+                            Usuarios: [
+                                { name: 'Usuarios', route: '/usuarios' },
+                            ],
+                            Accesos: [
+                                { name: 'Roles y Accesos', route: '/crear-rol-acceso' },
+                                { name: 'Gestionar Roles/Accesos', route: '/gestion-rol-acceso' },
+                                { name: 'Asignar Roles', route: '/asignar-rol' },
+                            ],
+                            Stock: [
+                                { name: 'Stock Productos', route: '/stock' },
+                            ],
+                            Movimientos: [
+                                { name: 'Realizar Ventas', route: '/realizaventas' },
+                                { name: 'Realizar Compras', route: '/realizacompras' },
+                            ],
+                            'Interfaz Ventas': [
+                                { name: 'Historial de Ventas', route: '/historial' },
+                                { name: 'Reporte de Ventas', route: '/reportesventas' },
+                            ],
+                            Sucursales: [
+                                { name: 'Agregar Sucursal', route: '/sucursales' },
+                                { name: 'Operaciones Sucursales', route: '/ver-sucursales' },
+                            ],
+                        };
+                    
+                        // Función para obtener los permisos del usuario (ejemplo)
+                        function userHasPermission(route) {
+                            // Implementa la lógica para verificar los permisos del usuario
+                            return true;
+                        }
+                    
+                        function filterResults() {
+                            const input = document.getElementById('search-input').value.toLowerCase();
+                            const results = document.getElementById('search-results');
+                            results.innerHTML = ''; // Limpiar resultados previos
+                    
+                            if (input.length >= 3) { // Iniciar búsqueda solo con 3 o más caracteres
+                                results.style.display = 'block';
+                    
+                                // Iterar sobre los menús
+                                Object.keys(menuStructure).forEach(menu => {
+                                    let menuMatch = false;
+                                    const subMenuList = document.createElement('ul');
+                                    subMenuList.className = 'list-group position-absolute bg-dark text-white p-0 mt-1';
+                                    subMenuList.style.display = 'none';
+                    
+                                    // Iterar sobre los submenús
+                                    menuStructure[menu].forEach(view => {
+                                        if (view.name.toLowerCase().includes(input) && userHasPermission(view.route)) {
+                                            menuMatch = true;
+                                            const li = document.createElement('li');
+                                            li.className = 'list-group-item list-group-item-action bg-dark text-white';
+                                            li.textContent = view.name;
+                                            li.onclick = () => window.location.href = view.route;
+                                            subMenuList.appendChild(li);
+                                        }
+                                    });
+                    
+                                    if (menuMatch) {
+                                        const li = document.createElement('li');
+                                        li.className = 'list-group-item list-group-item-action bg-white text-dark d-flex justify-content-between align-items-center border-bottom';
+
+                                        li.innerHTML = `${menu} <span class="fa fa-chevron-right"></span>`;
+                                        li.onmouseover = () => {
+                                            subMenuList.style.display = 'block';
+                                            subMenuList.style.left = `${li.offsetWidth}px`;
+                                            subMenuList.style.top = `${li.offsetTop}px`;
+                                        };
+                                        li.onmouseleave = () => {
+                                            subMenuList.style.display = 'none';
+                                        };
+                                        li.appendChild(subMenuList);
+                                        results.appendChild(li);
+                                    }
+                                });
+                            } else {
+                                results.style.display = 'none';
+                            }
+                        }
+                    </script>
+                    
                     <div class="dropdown d-inline-block d-lg-none ms-2">
                         <button type="button" class="btn header-item noti-icon waves-effect"
                             id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -341,7 +437,7 @@
                                 Profile
                             </a>
 
-                            <a class="dropdown-item" href="#"><i
+                            <a class="dropdown-item" href="{{ route('billetera.index') }}"><i
                                     class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
                             <a class="dropdown-item d-flex align-items-center" href="#"><i
                                     class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span
