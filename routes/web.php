@@ -23,6 +23,7 @@ use App\Http\Controllers\GestionRolAccesoController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AsignarRolController;
+use App\Http\Controllers\BilleteraController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -185,6 +186,11 @@ Route::middleware('auth')->group(function () {
     foreach ($tiendaRoutes as $route) {
         Route::{$route['method']}($route['uri'], [TiendaController::class, $route['action']])->name($route['name']);
     }
+
+    Route::get('/billetera', [BilleteraController::class, 'index'])->name('billetera.index');
+    Route::post('/billetera/depositar', [BilleteraController::class, 'depositar'])->name('billetera.depositar');
+    Route::post('/billetera/retirar', [BilleteraController::class, 'retirar'])->name('billetera.retirar');
+
 
     // Rutas de AsignarRolController
     Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
