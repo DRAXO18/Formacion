@@ -61,7 +61,7 @@
                                                         <li>
                                                             <div class="form-check custom-checkbox-container">
                                                                 <input class="form-check-input sub-access-checkbox" type="checkbox" name="id_accesos[]"
-                                                                    value="{{ $s_value->id }}" id="subacceso{{ $s_value->id }}">
+                                                                    value="{{ $s_value->id }}" id="subacceso{{ $s_value->id }}" data-parent-id="acceso{{ $acceso->id }}">
                                                                 <label class="form-check-label" for="subacceso{{ $s_value->id }}">
                                                                     {{ $s_value->nombre }} ({{ $s_value->tipo }})
                                                                 </label>
@@ -77,6 +77,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-left: 43%;">Guardar</button>
                     </form>
+
                     <div class="mt-4">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
                             data-bs-target="#modalAñadirRol" style="margin-left: 36%;">
@@ -195,90 +196,78 @@
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        
-
-                                        <div class="form-group">
-                                            <label for="nombreAcceso">Nombre del Acceso</label>
-                                            <input type="text" name="nombre" id="nombreAcceso" class="form-control"
-                                                value="{{ old('nombre') }}" required>
+                            
+                                        <div class="mb-3">
+                                            <label for="nombre" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
                                             @error('nombre')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="controlador">Controlador</label>
-                                            <input type="text" name="controlador" id="controlador" class="form-control"
-                                                value="{{ old('controlador') }}" required>
-                                            @error('controlador')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Guardar Acceso</button>
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Modal Editar Rol -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Manejo de cambio en el tipo de acceso
+                            document.querySelectorAll('#tipo').forEach(function (select) {
+                                select.addEventListener('change', function () {
+                                    handleTipoChange(this);
+                                });
+                            });
+
+                            function handleTipoChange(select) {
+                                var tipo = select.value;
+                                var container = document.getElementById('subacceso-select-container');
+                                if (tipo === 'subacceso') {
+                                    container.style.display = 'block';
+                                } else {
+                                    container.style.display = 'none';
+                                }
+                            }
+
+                            // Manejo de cambios en los checkboxes de acceso
+                            document.querySelectorAll('.access-parent').forEach(function (checkbox) {
+                                checkbox.addEventListener('change', function () {
+                                    var isChecked = this.checked;
+                                    var parentId = this.id;
+                                    var subCheckboxes = document.querySelectorAll(`input[data-parent-id="${parentId}"]`);
+                                    subCheckboxes.forEach(function (subCheckbox) {
+                                        subCheckbox.checked = isChecked;
+                                    });
+                                });
+                            });
+
+                            // Manejo de cambios en los checkboxes de subacceso
+                            document.querySelectorAll('.sub-access-checkbox').forEach(function (checkbox) {
+                                checkbox.addEventListener('change', function () {
+                                    var isChecked = this.checked;
+                                    var parentId = this.getAttribute('data-parent-id');
+                                    var parentCheckbox = document.getElementById(parentId);
+                                    if (isChecked) {
+                                        parentCheckbox.checked = true;
+                                    } else {
+                                        var allUnchecked = true;
+                                        document.querySelectorAll(`input[data-parent-id="${parentId}"]`).forEach(function (subCheckbox) {
+                                            if (subCheckbox.checked) {
+                                                allUnchecked = false;
+                                            }
+                                        });
+                                        if (allUnchecked) {
+                                            parentCheckbox.checked = false;
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Selección automática de subaccesos al seleccionar un acceso padre
-        document.querySelectorAll('.access-parent').forEach(function(parentCheckbox) {
-            parentCheckbox.addEventListener('change', function() {
-                var isChecked = this.checked;
-                var parentId = this.value;
-
-                // Verificar que parentId no es null o undefined
-                if (parentId) {
-                    // Seleccionar todos los subaccesos asociados al parentId
-                    document.querySelectorAll('.sub-access-checkbox').forEach(function(subCheckbox) {
-                        var subAccessElement = subCheckbox.closest('.sub-access');
-                        // Verificar que el subAccessElement no es null
-                        if (subAccessElement) {
-                            // Encontrar el parent checkbox relacionado
-                            var parentCheckboxElement = subAccessElement.previousElementSibling;
-                            // Verificar que el parentCheckboxElement existe y tiene el valor correcto
-                            if (parentCheckboxElement && parentCheckboxElement.classList.contains('access-parent')) {
-                                var parentCheckboxValue = parentCheckboxElement.value;
-                                if (parentCheckboxValue === parentId) {
-                                    subCheckbox.checked = isChecked;
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    });
-
-        document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar la visibilidad del contenedor según el valor actual del select
-    handleTipoChange(document.getElementById('tipo'));
-});
-
-function handleTipoChange(select) {
-    // Obtener el contenedor del select idacceso
-    var subaccesoSelectContainer = document.getElementById('subacceso-select-container');
-    
-    // Mostrar el contenedor solo si el valor seleccionado es 'subacceso'
-    if (select.value === 'subacceso') {
-        subaccesoSelectContainer.style.display = 'block';
-    } else {
-        subaccesoSelectContainer.style.display = 'none';
-    }
-}
-    
-</script>
-
-
 @endsection

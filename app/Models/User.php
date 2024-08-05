@@ -2,20 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     use HasApiTokens, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // Los atributos que son asignables en masa
     protected $fillable = [
         'nombre',
         'apellido',
@@ -25,41 +21,31 @@ class User extends Authenticatable
         'email',
         'password',
         'foto',
-        'id_rol', // Asegúrate de tener este campo en tu base de datos
+        'id_rol',
     ];
 
-    /**
-     * Relación con el tipo de usuario.
-     */
+    // Las relaciones
     public function tipoUsuario()
     {
         return $this->belongsTo(TipoUsuario::class, 'idtipo_usuario');
     }
 
-    /**
-     * Relación con el tipo de documento.
-     */
     public function tipoDocumento()
     {
         return $this->belongsTo(TipoDocumento::class, 'idtipo_documento');
     }
 
-    /**
-     * Relación con el rol.
-     */
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'id_rol');
     }
 
     public function billetera()
-{
-    return $this->hasOne(Billetera::class);
-}
+    {
+        return $this->hasOne(Billetera::class);
+    }
 
-    /**
-     * Verificar si el usuario tiene acceso a un permiso específico.
-     */
+    // Verificar acceso a permisos
     public function hasAcceso($acceso)
     {
         foreach ($this->roles as $role) {
@@ -70,22 +56,25 @@ class User extends Authenticatable
         return false;
     }
 
-    /**
-     * Los atributos que deberían estar ocultos para los arrays.
-     *
-     * @var array<int, string>
-     */
+    // Atributos ocultos
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Los atributos que deberían ser convertidos a tipos nativos.
-     *
-     * @var array<string, string>
-     */
+    // Conversión de atributos
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Verificar si el usuario ha verificado su email.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return $this->email_verified_at !== null;
+    }
 }
+
