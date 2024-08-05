@@ -439,7 +439,7 @@
 
                             <a class="dropdown-item" href="{{ route('billetera.index') }}"><i
                                     class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
-                            <a class="dropdown-item d-flex align-items-center" href="#"><i
+                            <a class="dropdown-item d-flex align-items-center" href="{{route('configuracion.index')}}"><i
                                     class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span
                                     class="badge bg-success ms-auto">11</span></a>
                             <a class="dropdown-item" href="#"><i

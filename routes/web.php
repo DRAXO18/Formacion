@@ -24,6 +24,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AsignarRolController;
 use App\Http\Controllers\BilleteraController;
+use App\Http\Controllers\ConfigController;
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -195,4 +197,37 @@ Route::middleware('auth')->group(function () {
     // Rutas de AsignarRolController
     Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
     Route::post('/asignar-rol', [AsignarRolController::class, 'store'])->name('asignar-rol.store');
+
+   
+
+ 
+
+    
+    
+    // Ruta para mostrar la vista de configuración
+    Route::get('/configuracion', [ConfigController::class, 'index'])->name('configuracion.index');
+    
+    // Ruta para reenviar el correo de verificación
+    Route::post('/configuracion/verify-email', [ConfigController::class, 'sendVerificationEmail'])->name('configuracion.verify-email');
+    
+    // Ruta para actualizar la contraseña
+    Route::post('/configuracion/update-password', [ConfigController::class, 'updatePassword'])->name('configuracion.update-password');
+    
+    // Ruta para verificar el correo electrónico (debe coincidir con el patrón usado en el correo enviado)
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/home'); // Redirige al usuario después de la verificación
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+    
+    // Ruta para mostrar el aviso de verificación de correo electrónico
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware(['auth'])->name('verification.notice');
+    
+    // Ruta para reenviar el correo de verificación
+    Route::post('/email/verification-notification', [ConfigController::class, 'sendVerificationEmail'])
+        ->middleware(['auth', 'throttle:6,1'])
+        ->name('verification.send');
+    
+
 });
