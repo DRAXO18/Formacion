@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Rol;
 use App\Models\Acceso;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+
 
 class RolAccesoController extends Controller
 {
@@ -12,6 +15,50 @@ class RolAccesoController extends Controller
     {
         $accesos = Acceso::where('tipo', 'acceso')->get();
         return view('rol-accesos', compact('accesos'));
+    }
+
+    public function buscarControladores(Request $request)
+    {
+        $query = $request->get('q');
+        $controllers = [];
+    
+        // Verificar que query no sea nulo o vacío
+        if (empty($query)) {
+            return response()->json($controllers);
+        }
+    
+        // Convertir la query a minúsculas y dividirla en palabras
+        $queryWords = explode(' ', strtolower($query));
+    
+        // Ruta de los controladores
+        $controllerPath = app_path('Http/Controllers');
+        if (!File::exists($controllerPath)) {
+            return response()->json(['error' => 'El directorio de controladores no existe'], 404);
+        }
+    
+        // Busca controladores en el directorio de controladores
+        foreach (File::allFiles($controllerPath) as $file) {
+            $filename = $file->getFilename();
+    
+            if (Str::endsWith($filename, '.php')) {
+                $controllerName = Str::replaceLast('.php', '', $filename);
+                $controllerNameLower = strtolower($controllerName);
+    
+                $match = true;
+                foreach ($queryWords as $word) {
+                    if (!Str::contains($controllerNameLower, $word)) {
+                        $match = false;
+                        break;
+                    }
+                }
+    
+                if ($match) {
+                    $controllers[] = $controllerName;
+                }
+            }
+        }
+    
+        return response()->json($controllers);
     }
 
     public function create()
