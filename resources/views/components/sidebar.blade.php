@@ -525,7 +525,7 @@
                     <!-- Left Menu Start -->
                     <ul class="metismenu list-unstyled" id="side-menu">
 
-                        {{-- @php
+                        @php
                             $id_usersession = Auth::user()->id;
 
                             // Obtener el ID del rol del usuario
@@ -536,6 +536,7 @@
 
                             // Obtener accesos permitidos
                             $accesos = DB::table('accesos')->whereIn('id', $permisos)->where('tipo', 'acceso')->get();
+
                         @endphp
                         @foreach ($accesos as $value)
                         <li>
@@ -557,110 +558,106 @@
                                 @endforeach
                             </ul>
                         </li>
-                    @endforeach --}}
+                    @endforeach
 
 
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span>Productos</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('agregar') }}">Agregar producto</a></li>
-                                <li><a href="{{ route('producto') }}">Visualizar producto</a></li>
-                            </ul>
-                        </li>
-
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-buffer"></i>
-                                <span>Marcas</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('marca') }}">Agregar marca</a></li>
-                                <li><a href="{{ route('visualizarmarca') }}">Visualizar marca</a></li>
-                            </ul>
-                        </li>
-
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-account-box"></i>
-                                <span>Usuarios</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('usuarios.index') }}">Añadir Usuario</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-shield-account"></i> <!-- Icono para Accesos -->
-                                <span>Accesos</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('rol-accesos.index') }}">Crear Rol/Acceso</a></li>
-                                <li><a href="{{ route('gestion-rol-acceso.index') }}">Gestionar</a></li>
-                                <li><a href="{{ route('asignar-rol.index') }}">Asignar Rol
-                                    </a></li>
-                            </ul>
-                        </li>
-
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-cube-send"></i>
-                                <span>Stock</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('operacionesstock.index') }}">Operaciones Stock</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-cart-outline"></i>
-                                <span>Movimientos</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('realizaventas') }}">Vender</a></li>
-                                <li><a href="{{ route('realizacompras.index') }}">Comprar</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-shopping"></i>
-                                <span>Interfaz Ventas</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('historial.index') }}">Historial de Ventas</a></li>
-                                <li><a href="{{ route('reporteventas') }}">Reporte de Ventas</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-store"></i>
-                                <span>Sucursales</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li>
-                                    <a href="{{ route('sucursales.index') }}">
-                                        <i class="mdi mdi-store-plus"></i>
-                                        <span>Agregar Tienda</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('versucursales') }}">
-                                        <i class="mdi mdi-file-chart"></i>
-                                        <span>Ver sucursales</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    {{-- <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-email-outline"></i>
+                            <span>Productos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('AgregarController.index') }}">Agregar producto</a></li>
+                            <li><a href="{{ route('ProductoController.index') }}">Visualizar producto</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-buffer"></i>
+                            <span>Marcas</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('MarcaController.create') }}">Agregar marca</a></li>
+                            <li><a href="{{ route('VisualizarMarcaController.index') }}">Visualizar marca</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-account-box"></i>
+                            <span>Usuarios</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('UsuariosController.index') }}">Añadir Usuario</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-shield-account"></i> <!-- Icono para Accesos -->
+                            <span>Accesos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('RolAccesoController.index') }}">Crear Rol/Acceso</a></li>
+                            <li><a href="{{ route('GestionRolAccesoController.index') }}">Gestionar</a></li>
+                            <li><a href="{{ route('AsignarRolController.index') }}">Asignar Rol</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-cube-send"></i>
+                            <span>Stock</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('StockController.index') }}">Operaciones Stock</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-cart-outline"></i>
+                            <span>Movimientos</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('RealizaventaController.index') }}">Vender</a></li>
+                            <li><a href="{{ route('RealizarCompraController.index') }}">Comprar</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-shopping"></i>
+                            <span>Interfaz Ventas</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('HistorialController.index') }}">Historial de Ventas</a></li>
+                            <li><a href="{{ route('ReporteVentasController.index') }}">Reporte de Ventas</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-store"></i>
+                            <span>Sucursales</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li>
+                                <a href="{{ route('TiendaController.index') }}">
+                                    <i class="mdi mdi-store-plus"></i>
+                                    <span>Agregar Tienda</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('TiendaController.vistasucursales') }}">
+                                    <i class="mdi mdi-file-chart"></i>
+                                    <span>Ver sucursales</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                     --}}
                     </ul>
                 </div>
                 <!-- Sidebar -->

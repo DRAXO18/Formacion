@@ -48,7 +48,7 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::middleware('auth')->group(function () {
 
     $productoRoutes = [
-        ['method' => 'get', 'uri' => '/productos', 'action' => 'index', 'name' => 'producto'],
+        ['method' => 'get', 'uri' => '/productos', 'action' => 'index', 'name' => 'ProductoController.index'],
         ['method' => 'post', 'uri' => '/productos', 'action' => 'store', 'name' => 'productos.store'],
         ['method' => 'get', 'uri' => '/productos/{id}', 'action' => 'show', 'name' => 'productos.show'],
         ['method' => 'put', 'uri' => '/productos/{id}', 'action' => 'update', 'name' => 'productos.update'],
@@ -60,11 +60,11 @@ Route::middleware('auth')->group(function () {
         Route::{$route['method']}($route['uri'], [ProductoController::class, $route['action']])->name($route['name']);
     }
 
-    Route::get('/agregar', [AgregarController::class, 'index'])->name('agregar');
+    Route::get('/agregar', [AgregarController::class, 'index'])->name('AgregarController.index');
 
     // Rutas de MarcaController
     $marcaRoutes = [
-        ['method' => 'get', 'uri' => '/marca', 'action' => 'create', 'name' => 'marca'],
+        ['method' => 'get', 'uri' => '/marca', 'action' => 'create', 'name' => 'MarcaController.index'],
         ['method' => 'post', 'uri' => '/marca', 'action' => 'store', 'name' => 'marcas.store'],
         ['method' => 'put', 'uri' => '/marcas/{id}', 'action' => 'update', 'name' => 'marcas.update'],
         ['method' => 'get', 'uri' => '/marcas', 'action' => 'index', 'name' => 'marcas.index'],
@@ -87,14 +87,14 @@ Route::middleware('auth')->group(function () {
     }
 
     // Rutas de VisualizarMarcaController
-    Route::get('/visualizarmarca', [VisualizarMarcaController::class, 'index'])->name('visualizarmarca');
+    Route::get('/visualizarmarca', [VisualizarMarcaController::class, 'index'])->name('VisualizarMarcaController.index');
 
     // Rutas de AñadirusuarioController
-    Route::get('/Añadirususario', [AñadirusuarioController::class, 'index'])->name('Añadirusuario');
+    Route::get('/Añadirususario', [AñadirusuarioController::class, 'index'])->name('UsuariosController.index');
 
     // Rutas de RealizaventaController
     $realizaVentaRoutes = [
-        ['method' => 'get', 'uri' => 'realizaventas', 'action' => 'index', 'name' => 'realizaventas'],
+        ['method' => 'get', 'uri' => 'realizaventas', 'action' => 'index', 'name' => 'RealizaventaController.index'],
         ['method' => 'get', 'uri' => 'realizaventas/buscar-usuarios', 'action' => 'buscarUsuarios', 'name' => 'realizaventas.buscarUsuarios'],
         ['method' => 'get', 'uri' => 'realizaventas/buscar-productos', 'action' => 'buscarProductos', 'name' => 'realizaventas.buscarProductos'],
         ['method' => 'post', 'uri' => 'realizaventas/guardar-venta', 'action' => 'guardarVenta', 'name' => 'realizaventas.guardarVenta'],
@@ -105,7 +105,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de RealizarCompraController
     $realizaCompraRoutes = [
-        ['method' => 'get', 'uri' => '/realizacompras', 'action' => 'index', 'name' => 'realizacompras.index'],
+        ['method' => 'get', 'uri' => '/realizacompras', 'action' => 'index', 'name' => 'RealizarCompraController.index'],
         ['method' => 'post', 'uri' => '/realizacompras', 'action' => 'guardarCompra', 'name' => 'realizacompras.guardarCompra'],
         ['method' => 'get', 'uri' => '/realizacompras/buscarProductos', 'action' => 'buscarProductos', 'name' => 'realizacompras.buscarProductos'],
         ['method' => 'get', 'uri' => '/realizacompras/buscarUsuarios', 'action' => 'buscarProveedores', 'name' => 'realizacompras.buscarProveedores'],
@@ -117,7 +117,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de HistorialController
     $historialRoutes = [
-        ['method' => 'get', 'uri' => '/historial', 'action' => 'index', 'name' => 'historial.index'],
+        ['method' => 'get', 'uri' => '/historial', 'action' => 'index', 'name' => 'HistorialController.index'],
         ['method' => 'get', 'uri' => 'historial/detalles/{id}', 'action' => 'detalles', 'name' => 'historial.detalles'],
         ['method' => 'get', 'uri' => '/historial/filtrar', 'action' => 'filtrar', 'name' => 'historial.filtrar'],
     ];
@@ -127,7 +127,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de StockController
     $stockRoutes = [
-        ['method' => 'get', 'uri' => '/stock', 'action' => 'index', 'name' => 'operacionesstock.index'],
+        ['method' => 'get', 'uri' => '/stock', 'action' => 'index', 'name' => 'StockController.index'],
         ['method' => 'post', 'uri' => '/operacionesstock/update', 'action' => 'update', 'name' => 'operacionesstock.update'],
         ['method' => 'get', 'uri' => '/productos/search', 'action' => 'search', 'name' => 'productos.search'],
         ['method' => 'get', 'uri' => '/operacionesstock/search', 'action' => 'search', 'name' => 'operacionesstock.search'],
@@ -139,7 +139,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de ReporteVentasController
     $reporteVentasRoutes = [
-        ['method' => 'get', 'uri' => '/reportesventas', 'action' => 'index', 'name' => 'reporteventas'],
+        ['method' => 'get', 'uri' => '/reportesventas', 'action' => 'index', 'name' => 'ReporteVentasController.index'],
         ['method' => 'post', 'uri' => '/reportesventas/filtrar', 'action' => 'filtrar', 'name' => 'reportes.ventas.filtrar'],
         ['method' => 'post', 'uri' => '/reportesventas/buscar', 'action' => 'buscar', 'name' => 'reportes.ventas.buscar'],
         ['method' => 'get', 'uri' => '/ventas-por-mes', 'action' => 'ventasPorMes', 'name' => 'ventas.por_mes'],
@@ -150,7 +150,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de RolAccesoController
     $rolAccesoRoutes = [
-        ['method' => 'get', 'uri' => '/crear-rol-acceso', 'action' => 'index', 'name' => 'rol-accesos.index'],
+        ['method' => 'get', 'uri' => '/crear-rol-acceso', 'action' => 'index', 'name' => 'RolAccesoController.index'],
         ['method' => 'post', 'uri' => 'store-rol', 'action' => 'storeRol', 'name' => 'roles.store'],
         ['method' => 'get', 'uri' => 'create', 'action' => 'create', 'name' => 'roles.create'],
         ['method' => 'post', 'uri' => 'store-acceso', 'action' => 'storeAcceso', 'name' => 'accesos.store'],
@@ -162,8 +162,10 @@ Route::middleware('auth')->group(function () {
         Route::{$route['method']}($route['uri'], [RolAccesoController::class, $route['action']])->name($route['name']);
     }
 
+    Route::get('/buscar-controladores', [RolAccesoController::class, 'buscarControladores'])->name('buscar.controladores');
+
     $gestionRolAccesoRoutes = [
-        ['method' => 'get', 'uri' => '/gestion-rol-acceso', 'action' => 'index', 'name' => 'gestion-rol-acceso.index'],
+        ['method' => 'get', 'uri' => '/gestion-rol-acceso', 'action' => 'index', 'name' => 'GestionRolAccesoController.index'],
         ['method' => 'get', 'uri' => 'create-gestion', 'action' => 'create', 'name' => 'gestion-rol-acceso.create'],
         ['method' => 'post', 'uri' => 'store-gestion', 'action' => 'store', 'name' => 'gestion-rol-acceso.store'],
         ['method' => 'delete', 'uri' => 'destroy/{id}', 'action' => 'destroy', 'name' => 'gestion-rol-acceso.destroy'],
@@ -177,8 +179,8 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de TiendaController
     $tiendaRoutes = [
-        ['method' => 'get', 'uri' => 'sucursales', 'action' => 'index', 'name' => 'sucursales.index'],
-        ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'vistasucursales', 'name' => 'versucursales'],
+        ['method' => 'get', 'uri' => 'sucursales', 'action' => 'index', 'name' => 'TiendaController.index'],
+        ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'vistasucursales', 'name' => 'TiendaController.vistasucursales'],
         ['method' => 'post', 'uri' => 'sucursales', 'action' => 'store', 'name' => 'sucursales.store'],
         ['method' => 'get', 'uri' => 'sucursales/show', 'action' => 'show', 'name' => 'sucursales.show'],
         ['method' => 'put', 'uri' => 'sucursales/{id}', 'action' => 'update', 'name' => 'sucursales.update'],
@@ -195,14 +197,9 @@ Route::middleware('auth')->group(function () {
 
 
     // Rutas de AsignarRolController
-    Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('asignar-rol.index');
+    Route::get('/asignar-rol', [AsignarRolController::class, 'index'])->name('AsignarRolController.index');
     Route::post('/asignar-rol', [AsignarRolController::class, 'store'])->name('asignar-rol.store');
 
-   
-
- 
-
-    
     
     // Ruta para mostrar la vista de configuración
     Route::get('/configuracion', [ConfigController::class, 'index'])->name('configuracion.index');
@@ -214,10 +211,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/configuracion/update-password', [ConfigController::class, 'updatePassword'])->name('configuracion.update-password');
     
     // Ruta para verificar el correo electrónico (debe coincidir con el patrón usado en el correo enviado)
-    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-        $request->fulfill();
-        return redirect('/home'); // Redirige al usuario después de la verificación
-    })->middleware(['auth', 'signed'])->name('verification.verify');
+    // Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    //     $request->fulfill();
+    //     return redirect('/home'); // Redirige al usuario después de la verificación
+    // })->middleware(['auth', 'signed'])->name('verification.verify');
     
     // Ruta para mostrar el aviso de verificación de correo electrónico
     Route::get('/email/verify', function () {

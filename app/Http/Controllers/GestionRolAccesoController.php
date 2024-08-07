@@ -27,7 +27,7 @@ class GestionRolAccesoController extends Controller
         $rol = Rol::findOrFail($request->id_rol);
         $rol->accesos()->sync($request->id_accesos);
 
-        return redirect()->route('gestion-rol-acceso.index')->with('success', 'Accesos y Roles gestionados correctamente.');
+        return redirect()->route('GestionRolAccesoController.index')->with('success', 'Accesos y Roles gestionados correctamente.');
     }
 
     public function edit($id)
@@ -46,7 +46,7 @@ class GestionRolAccesoController extends Controller
         // Sincronizar accesos
         $rol->accesos()->sync($request->input('id_accesos', []));
 
-        return redirect()->route('gestion-rol-acceso.index')->with('success', 'Rol actualizado con éxito.');
+        return redirect()->route('GestionRolAccesoController.index')->with('success', 'Rol actualizado con éxito.');
     }
 
 
@@ -55,6 +55,6 @@ class GestionRolAccesoController extends Controller
         $rol = Rol::findOrFail($id);
         $rol->delete();
 
-        return redirect()->route('gestion-rol-acceso.index')->with('success', 'Rol eliminado correctamente.');
+        return redirect()->route('GestionRolAccesoController.index')->with('success', 'Rol eliminado correctamente.');
     }
 }

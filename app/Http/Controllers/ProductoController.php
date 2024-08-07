@@ -53,7 +53,7 @@ class ProductoController extends Controller
 
         $producto->save();
 
-        return redirect()->route('producto')->with('success', 'Producto agregado correctamente');
+        return redirect()->route('ProductoController.index')->with('success', 'Producto agregado correctamente');
     }
 
     public function show(Request $request, $id)
@@ -106,7 +106,7 @@ class ProductoController extends Controller
 
         $producto->save();
 
-        return redirect()->route('producto')->with('success', 'Producto actualizado correctamente');
+        return redirect()->route('ProductoController.index')->with('success', 'Producto actualizado correctamente');
     }
 
     public function destroy($id)
@@ -120,6 +120,6 @@ class ProductoController extends Controller
 
         $producto->delete();
 
-        return redirect()->route('producto')->with('success', 'Producto eliminado correctamente');
+        return redirect()->route('ProductoController.index')->with('success', 'Producto eliminado correctamente');
     }
 }

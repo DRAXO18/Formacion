@@ -30,7 +30,7 @@
                                     </div>
                                 @endif
                                 <!-- Formulario para ingresar marcas -->
-                                <form action="{{ route('marca') }}" method="POST">
+                                <form action="{{ route('marcas.store') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="nombreMarca" class="form-label">Nombre de la Marca</label>
