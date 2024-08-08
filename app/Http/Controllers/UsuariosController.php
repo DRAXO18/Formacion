@@ -80,6 +80,7 @@ class UsuariosController extends Controller
         return back()->withErrors(['error' => $e->getMessage()])->withInput();
     }
     }
+    
 
     public function updateFoto(Request $request)
     {
@@ -155,4 +156,5 @@ class UsuariosController extends Controller
 
         return redirect()->back()->with('success', 'Perfil actualizado exitosamente');
     }
+    
 }
