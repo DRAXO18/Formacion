@@ -47,6 +47,7 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::middleware('auth')->group(function () {
 
+    Route::middleware(['check.acceso:producto.view'])->group(function () {
     $productoRoutes = [
         ['method' => 'get', 'uri' => '/productos', 'action' => 'index', 'name' => 'ProductoController.index'],
         ['method' => 'post', 'uri' => '/productos', 'action' => 'store', 'name' => 'productos.store'],
@@ -59,6 +60,7 @@ Route::middleware('auth')->group(function () {
     foreach ($productoRoutes as $route) {
         Route::{$route['method']}($route['uri'], [ProductoController::class, $route['action']])->name($route['name']);
     }
+});
 
     Route::get('/agregar', [AgregarController::class, 'index'])->name('AgregarController.index');
 
@@ -76,7 +78,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de UsuariosController
     $usuarioRoutes = [
-        ['method' => 'get', 'uri' => '/usuarios', 'action' => 'index', 'name' => 'usuarios.index'],
+        ['method' => 'get', 'uri' => '/usuarios', 'action' => 'index', 'name' => 'UsuariosController.index'],
         ['method' => 'get', 'uri' => '/usuarios/create', 'action' => 'create', 'name' => 'usuarios.create'],
         ['method' => 'post', 'uri' => '/usuarios', 'action' => 'store', 'name' => 'usuarios.store'],
         ['method' => 'post', 'uri' => '/usuarios/update-foto', 'action' => 'updateFoto', 'name' => 'usuarios.updateFoto'],
@@ -90,7 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/visualizarmarca', [VisualizarMarcaController::class, 'index'])->name('VisualizarMarcaController.index');
 
     // Rutas de AñadirusuarioController
-    Route::get('/Añadirususario', [AñadirusuarioController::class, 'index'])->name('UsuariosController.index');
+    Route::get('/Añadirususario', [AñadirusuarioController::class, 'index'])->name('añadirusuario');
 
     // Rutas de RealizaventaController
     $realizaVentaRoutes = [
@@ -126,6 +128,7 @@ Route::middleware('auth')->group(function () {
     }
 
     // Rutas de StockController
+    
     $stockRoutes = [
         ['method' => 'get', 'uri' => '/stock', 'action' => 'index', 'name' => 'StockController.index'],
         ['method' => 'post', 'uri' => '/operacionesstock/update', 'action' => 'update', 'name' => 'operacionesstock.update'],
@@ -136,6 +139,7 @@ Route::middleware('auth')->group(function () {
     foreach ($stockRoutes as $route) {
         Route::{$route['method']}($route['uri'], [StockController::class, $route['action']])->name($route['name']);
     }
+
 
     // Rutas de ReporteVentasController
     $reporteVentasRoutes = [
