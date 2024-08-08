@@ -100,6 +100,7 @@ Route::middleware('auth')->group(function () {
         ['method' => 'get', 'uri' => 'realizaventas/buscar-usuarios', 'action' => 'buscarUsuarios', 'name' => 'realizaventas.buscarUsuarios'],
         ['method' => 'get', 'uri' => 'realizaventas/buscar-productos', 'action' => 'buscarProductos', 'name' => 'realizaventas.buscarProductos'],
         ['method' => 'post', 'uri' => 'realizaventas/guardar-venta', 'action' => 'guardarVenta', 'name' => 'realizaventas.guardarVenta'],
+        ['method' => 'post', 'uri' => 'realizaventas/guardar-cliente', 'action' => 'guardarCliente', 'name' => 'realizaventas.guardarCliente'],
     ];
     foreach ($realizaVentaRoutes as $route) {
         Route::{$route['method']}($route['uri'], [RealizaventaController::class, $route['action']])->name($route['name']);
