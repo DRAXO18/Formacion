@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\Notification;
-
 use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Stock;
@@ -12,7 +10,11 @@ use App\Models\Producto;
 use App\Models\Venta;
 use App\Models\DetallesVenta;
 use App\Models\TipoVenta;
+use App\Models\TipoDocumento; // Asegúrate de importar el modelo
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class RealizaventaController extends Controller
 {
@@ -22,8 +24,9 @@ class RealizaventaController extends Controller
     public function index()
     {
         $tipos_venta = TipoVenta::all();
+        $tiposDocumentos = TipoDocumento::all(); // Obtener todos los tipos de documentos
 
-        return view('realizaventas', compact('tipos_venta'));
+        return view('realizaventas', compact('tipos_venta', 'tiposDocumentos'));
     }
 
     public function buscarUsuarios(Request $request)
@@ -53,6 +56,49 @@ class RealizaventaController extends Controller
             ];
         })->all();
         return response()->json(['productos' => $productosArray]);
+    }
+
+    public function guardarCliente(Request $request)
+    {
+        try {
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'apellido' => 'required|string|max:255',
+                'numero_identificacion' => 'required|string|max:255|unique:users,numero_identificacion',
+                'idtipo_documento' => 'required|exists:tipo_documento,id',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Tamaño máximo 2MB
+            ]);
+
+            // Crear el usuario
+            $user = new User([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'numero_identificacion' => $request->numero_identificacion,
+                'idtipo_documento' => $request->idtipo_documento,
+            ]);
+
+            // Manejar la foto si está presente
+            if ($request->hasFile('foto')) {
+                $imagen = $request->file('foto');
+                $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+                $rutaImagen = 'fotos/' . $nombreImagen;
+
+                // Almacenar la imagen en el almacenamiento
+                $imagen->storeAs('public/' . $rutaImagen);
+
+                // Guardar la ruta de la imagen en el modelo User
+                $user->foto = $rutaImagen;
+            }
+
+            $user->save();
+
+            return response()->json(['success' => true, 'message' => 'Cliente añadido exitosamente.']);
+
+        } catch (ValidationException $e) {
+            return response()->json(['success' => false, 'errors' => $e->validator->errors()]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 
     public function guardarVenta(Request $request)
@@ -113,12 +159,6 @@ class RealizaventaController extends Controller
             $productoModel->stock -= $producto['cantidad'];
             $productoModel->save();
         }
-
-        // Notification::create([
-        //     'user_id' => auth()->user()->id,
-        //     'message' => 'Se realizó una venta.',
-        //     'type' => 'venta'
-        // ]);
 
         return response()->json(['success' => 'Venta registrada correctamente']);
     }
