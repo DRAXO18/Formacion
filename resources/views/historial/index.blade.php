@@ -9,7 +9,7 @@
                         <h1 class="text-center mb-4">Historial de Ventas</h1>
 
                         <!-- Formulario de filtro y búsqueda -->
-                        <form action="{{ route('historial.index') }}" method="GET">
+                        <form action="{{ route('HistorialController.index') }}" method="GET">
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <div class="form-group">

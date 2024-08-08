@@ -525,7 +525,7 @@
                     <!-- Left Menu Start -->
                     <ul class="metismenu list-unstyled" id="side-menu">
 
-                        @php
+                        {{-- @php
                             $id_usersession = Auth::user()->id;
 
                             // Obtener el ID del rol del usuario
@@ -558,10 +558,11 @@
                                 @endforeach
                             </ul>
                         </li>
-                    @endforeach
+                    @endforeach --}}
 
 
-                    {{-- <li>
+
+                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-email-outline"></i>
                             <span>Productos</span>
@@ -578,7 +579,7 @@
                             <span>Marcas</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('MarcaController.create') }}">Agregar marca</a></li>
+                            <li><a href="{{ route('MarcaController.index') }}">Agregar marca</a></li>
                             <li><a href="{{ route('VisualizarMarcaController.index') }}">Visualizar marca</a></li>
                         </ul>
                     </li>
@@ -657,7 +658,7 @@
                             </li>
                         </ul>
                     </li>
-                     --}}
+                    
                     </ul>
                 </div>
                 <!-- Sidebar -->
