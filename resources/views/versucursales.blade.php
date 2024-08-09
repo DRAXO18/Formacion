@@ -152,7 +152,7 @@
                                     </tbody>
                                 </table>
                                 <!-- Add New Store Button -->
-                                <a href="{{ route('TiendaController.vistasucursales') }}" class="btn btn-success mt-3">
+                                <a href="{{ route('TiendaController.index') }}" class="btn btn-success mt-3">
                                     <i class="fas fa-plus"></i> Añadir Tiendas
                                 </a>
                             </div>

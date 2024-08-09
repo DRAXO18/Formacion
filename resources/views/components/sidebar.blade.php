@@ -146,6 +146,7 @@
                             ],
                             Marca: [
                                 { name: 'Agregar Marca', route: '/marca' },
+                                { name: 'Visualizar Marca', route: '/visualizarmarca' },
                             ],
                             Usuarios: [
                                 { name: 'Usuarios', route: '/usuarios' },
@@ -434,21 +435,25 @@
                             <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                 data-bs-target="#profileModal">
                                 <i class="mdi mdi-account-circle font-size-17 text-muted align-middle me-1"></i>
-                                Profile
+                                Perfil
                             </a>
-
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#favoritesModal">
+                                <i class="mdi mdi-star font-size-17 text-muted align-middle me-1"></i>
+                                Mis Favoritos
+                            </a>
+                            
                             <a class="dropdown-item" href="{{ route('billetera.index') }}"><i
-                                    class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i> My Wallet</a>
+                                    class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i>Mi Billetera</a>
                             <a class="dropdown-item d-flex align-items-center" href="{{route('configuracion.index')}}"><i
-                                    class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i> Settings<span
-                                    class="badge bg-success ms-auto">11</span></a>
+                                    class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i>Ajustes<span
+                                    class="badge bg-success ms-auto">-</span></a>
                             <a class="dropdown-item" href="#"><i
                                     class="mdi mdi-lock-open-outline font-size-17 text-muted align-middle me-1"></i>
-                                Lock screen</a>
+                                Bloquear Pantalla</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}"><i
                                     class="mdi mdi-power font-size-17 text-muted align-middle me-1 text-danger"></i>
-                                Logout</a>
+                                Cerrar Sesion</a>
                         </div>
                     </div>
 
@@ -513,6 +518,16 @@
                     reader.readAsDataURL(file);
                 }
             }
+
+            document.querySelector('[data-bs-target="#favoritesModal"]').addEventListener('click', function() {
+        fetch('{{ route("favorites.get") }}')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('modal-container').innerHTML = html;
+                var myModal = new bootstrap.Modal(document.getElementById('favoritesModal'), {});
+                myModal.show();
+            });
+    });
         </script>
 
         <!-- ========== Left Sidebar Start ========== -->
@@ -541,7 +556,7 @@
                         @foreach ($accesos as $value)
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="mdi mdi-email-outline"></i>
+                                <i class="mdi mdi-shield-account"></i>
                                 <span>{{ $value->nombre }}</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
