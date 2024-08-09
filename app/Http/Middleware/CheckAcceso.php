@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -15,25 +14,37 @@ class CheckAcceso
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $permission
+     * @param  string  $controller
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $permission)
+    public function handle(Request $request, Closure $next, $controller)
     {
         $user = Auth::user();
         $userRole = $user->id_rol;
 
         // Registrar el inicio del middleware
-        Log::info("Middleware CheckAcceso iniciado para el usuario: {$user->id}, rol: {$userRole}, permiso requerido: {$permission}");
+        Log::info("Middleware CheckAcceso iniciado para el usuario: {$user->id}, rol: {$userRole}, controlador requerido: {$controller}");
 
-        // Obtener los permisos de acceso para el rol del usuario
-        $permisos = DB::table('permiso_acceso')->where('id_rol', $userRole)->pluck('id_acceso');
+        // Obtener los id_acceso del rol del usuario
+        $idAccesos = DB::table('permiso_acceso')
+            ->where('id_rol', $userRole)
+            ->pluck('id_acceso')
+            ->toArray();
 
-        // Registrar los permisos obtenidos
-        Log::info("Permisos obtenidos para el rol {$userRole}: " . $permisos->implode(', '));
+        // Obtener los nombres de los controladores permitidos para esos id_acceso
+        $controladores = DB::table('accesos')
+            ->whereIn('id', $idAccesos)
+            ->pluck('controlador')
+            ->map(function ($item) {
+                return preg_replace('/\.index$/', '', $item);
+            })
+            ->toArray();
 
-        // Verificar si el permiso está en la lista de permisos del usuario
-        if ($permisos->contains($permission)) {
+        // Registrar los controladores obtenidos
+        Log::info("Controladores obtenidos para el rol {$userRole}: " . implode(', ', $controladores));
+
+        // Verificar si el controlador está en la lista de controladores permitidos
+        if (in_array($controller, $controladores)) {
             // Registrar el permiso concedido
             Log::info("Permiso concedido para el usuario: {$user->id}");
             return $next($request);
