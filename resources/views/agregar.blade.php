@@ -11,6 +11,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="header-title mb-3">Ingrese Producto</h4>
+                                        <button id="favorite-btn" class="btn">
+                                            <i class="fa fa-star" id="favorite-icon"></i> 
+                                        </button>
                                         <!-- Formulario para ingresar productos -->
                                         <form id="productForm" action="{{ route('productos.store') }}" method="POST"
                                             enctype="multipart/form-data">
@@ -81,6 +84,33 @@
 
     <!-- Script para mostrar imagen previa y funciones adicionales -->
     <script>
+
+        document.getElementById('favorite-btn').addEventListener('click', function() {
+        const params = new URLSearchParams(window.location.search).toString();
+        
+        fetch('{{ route("favorites.toggle") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                view_name: '{{ Route::currentRouteName() }}',
+                view_params: params
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'added') {
+                document.getElementById('favorite-icon').classList.add('text-warning');
+            } else {
+                document.getElementById('favorite-icon').classList.remove('text-warning');
+            }
+        });
+    });
+
+
+
         // Función para redimensionar y previsualizar la imagen seleccionada
         function resizeImage(event) {
             var file = event.target.files[0];

@@ -23,6 +23,9 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AsignarRolController;
 use App\Http\Controllers\BilleteraController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\VerSucursalesController;
+use App\Http\Controllers\FavoriteController;
+
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -34,7 +37,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Ruta para el dashboard protegida por autenticación
 Route::get('/', function () {
     return view('dashboard');
-})->name('dashboard')->middleware('auth');
+})->name('/')->middleware('auth');
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
@@ -44,6 +47,12 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 // Rutas protegidas por autenticación usando el middleware 'auth'
 
 Route::middleware('auth')->group(function () {
+
+    // Ruta para alternar el estado de favorito (añadir/eliminar)
+    Route::post('/favorites/toggle', [FavoriteController::class, 'toggleFavorite'])->name('favorites.toggle');
+
+    // Ruta para obtener y mostrar la lista de vistas favoritas del usuario
+    Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->name('favorites.get');
 
     Route::middleware(['check.acceso:ProductoController'])->group(function () {
         $productoRoutes = [
@@ -104,7 +113,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Rutas de RealizaventaController
-    Route::middleware(['check.acceso:MarcaController'])->group(function () {
+    Route::middleware(['check.acceso:RealizaventaController'])->group(function () {
         $realizaVentaRoutes = [
             ['method' => 'get', 'uri' => 'realizaventas', 'action' => 'index', 'name' => 'RealizaventaController.index'],
             ['method' => 'get', 'uri' => 'realizaventas/buscar-usuarios', 'action' => 'buscarUsuarios', 'name' => 'realizaventas.buscarUsuarios'],
@@ -176,7 +185,7 @@ Route::middleware('auth')->group(function () {
         }
     });
 
-    Route::middleware(['check.acceso:RolAccesoController'])->group(function () {
+    // Route::middleware(['check.acceso:RolAccesoController'])->group(function () {
 
         // Rutas de RolAccesoController
         $rolAccesoRoutes = [
@@ -191,12 +200,12 @@ Route::middleware('auth')->group(function () {
         foreach ($rolAccesoRoutes as $route) {
             Route::{$route['method']}($route['uri'], [RolAccesoController::class, $route['action']])->name($route['name']);
         }
-    });
+    // });
 
 
     Route::get('/buscar-controladores', [RolAccesoController::class, 'buscarControladores'])->name('buscar.controladores');
 
-    Route::middleware(['check.acceso:GestionRolAccesoController'])->group(function () {
+    // Route::middleware(['check.acceso:GestionRolAccesoController'])->group(function () {
         $gestionRolAccesoRoutes = [
             ['method' => 'get', 'uri' => '/gestion-rol-acceso', 'action' => 'index', 'name' => 'GestionRolAccesoController.index'],
             ['method' => 'get', 'uri' => 'create-gestion', 'action' => 'create', 'name' => 'gestion-rol-acceso.create'],
@@ -209,23 +218,38 @@ Route::middleware('auth')->group(function () {
         foreach ($gestionRolAccesoRoutes as $route) {
             Route::{$route['method']}($route['uri'], [GestionRolAccesoController::class, $route['action']])->name($route['name']);
         }
-    });
+    // });
 
     Route::middleware(['check.acceso:TiendaController'])->group(function () {
         // Rutas de TiendaController
         $tiendaRoutes = [
             ['method' => 'get', 'uri' => 'sucursales', 'action' => 'index', 'name' => 'TiendaController.index'],
-            ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'vistasucursales', 'name' => 'TiendaController.vistasucursales'],
+            // ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'vistasucursales', 'name' => 'TiendaController.vistasucursales'],
             ['method' => 'post', 'uri' => 'sucursales', 'action' => 'store', 'name' => 'sucursales.store'],
+            // ['method' => 'get', 'uri' => 'sucursales/show', 'action' => 'show', 'name' => 'sucursales.show'],
+            // ['method' => 'put', 'uri' => 'sucursales/{id}', 'action' => 'update', 'name' => 'sucursales.update'],
+            // ['method' => 'delete', 'uri' => 'sucursales/{id}', 'action' => 'destroy', 'name' => 'sucursales.destroy'],
+            // ['method' => 'get', 'uri' => 'ubigeo/{id}', 'action' => 'getUbigeo', 'name' => 'ubigeo.get'],
+        ];
+        foreach ($tiendaRoutes as $route) {
+            Route::{$route['method']}($route['uri'], [TiendaController::class, $route['action']])->name($route['name']);
+        }
+    });
+
+    Route::middleware(['check.acceso:VerSucursalesController'])->group(function () {
+        //Ver sucursales
+        $tiendaRoutes = [
+            ['method' => 'get', 'uri' => 'ver-sucursales', 'action' => 'index', 'name' => 'VerSucursalesController.index'],
             ['method' => 'get', 'uri' => 'sucursales/show', 'action' => 'show', 'name' => 'sucursales.show'],
             ['method' => 'put', 'uri' => 'sucursales/{id}', 'action' => 'update', 'name' => 'sucursales.update'],
             ['method' => 'delete', 'uri' => 'sucursales/{id}', 'action' => 'destroy', 'name' => 'sucursales.destroy'],
             ['method' => 'get', 'uri' => 'ubigeo/{id}', 'action' => 'getUbigeo', 'name' => 'ubigeo.get'],
         ];
         foreach ($tiendaRoutes as $route) {
-            Route::{$route['method']}($route['uri'], [TiendaController::class, $route['action']])->name($route['name']);
+            Route::{$route['method']}($route['uri'], [VerSucursalesController::class, $route['action']])->name($route['name']);
         }
     });
+
 
 
 

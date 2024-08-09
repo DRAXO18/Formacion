@@ -54,6 +54,6 @@ class CheckAcceso
         Log::warning("Permiso denegado para el usuario: {$user->id}, se redirige al dashboard");
 
         // Redirigir o mostrar error si el usuario no tiene permiso
-        return redirect()->route('dashboard')->with('error', 'No tienes permiso para acceder a esta página.');
+        return redirect()->route('/')->with('error', 'No tienes permiso para acceder a esta página.');
     }
 }
