@@ -24,7 +24,8 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="proveedor_nombre" name="proveedor_nombre" placeholder="Seleccionar Proveedor" readonly>
                                                 <input type="hidden" id="proveedor_id" name="proveedor_id">
-                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#proveedorModal">Seleccionar Proveedor</button>
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#proveedorModal">Seleccionar Proveedor</button><p>&nbsp;</p><p>&nbsp;</p>
+                                                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#nuevoProveedorModal">Añadir Proveedor</button>
                                             </div>
                                         </div>
                                     
@@ -80,6 +81,56 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal para añadir proveedor -->
+<div class="modal fade" id="nuevoProveedorModal" tabindex="-1" aria-labelledby="nuevoProveedorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nuevoProveedorModalLabel">Añadir Proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="nuevoProveedorForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="idtipo_documento" class="form-label">Tipo de Documento</label>
+                        <select class="form-control" id="idtipo_documento" name="idtipo_documento" required>
+                            <option value="">Seleccionar Tipo de Documento</option>
+                            @foreach($tiposDocumentos as $tipoDocumento)
+                                <option value="{{ $tipoDocumento->id }}">{{ $tipoDocumento->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="numero_identificacion" class="form-label">Número de Identificación</label>
+                        <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto de Perfil</label>
+                        <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" id="tipo_usuario" name="tipo_usuario" value="2"> <!-- Campo oculto con valor de Proveedor -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
                     <!-- Modal para seleccionar proveedor -->
                     <div class="modal fade" id="proveedorModal" tabindex="-1" aria-labelledby="proveedorModalLabel"
                         aria-hidden="true">
@@ -400,6 +451,66 @@ function actualizarTotal() {
         }
     });
 });
+
+$(document).ready(function() {
+    $('#nuevoProveedorForm').on('submit', function(event) {
+        event.preventDefault(); // Previene el envío normal del formulario
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("realizacompras.guardarProveedor") }}',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Proveedor añadido exitosamente');
+
+                    // Autorrellenar los campos en el formulario de compras
+                    var nuevoProveedor = response.proveedor;
+                    $('#proveedor_nombre').val(nuevoProveedor.nombre + ' ' + nuevoProveedor.apellido);
+                    $('#proveedor_id').val(nuevoProveedor.id);
+
+                    // Cierra el modal
+                    var modalEl = document.getElementById('nuevoProveedorModal');
+                    var modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+
+                } else {
+                    var errorMessage = '';
+                    if (response.errors) {
+                        for (const [field, messages] of Object.entries(response.errors)) {
+                            if (field === 'numero_identificacion') {
+                                errorMessage += 'El número de identificación ya está en uso. Por favor, usa otro.\n';
+                            } else {
+                                errorMessage += `${field}: ${messages.join(', ')}\n`;
+                            }
+                        }
+                    } else {
+                        errorMessage = 'Hubo un error al añadir el proveedor';
+                    }
+                    alert(errorMessage);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                alert('Hubo un error al procesar la solicitud');
+            }
+        });
+    });
+
+    // Establecer el tipo de usuario automáticamente en el modal
+    $('#nuevoProveedorModal').on('show.bs.modal', function () {
+        $('#tipo_usuario').val(2); // Preestablecer el tipo de usuario como "Proveedor"
+    });
+});
+
+
 
     </script>
 @endsection

@@ -10,7 +10,8 @@ use App\Models\Producto;
 use App\Models\Venta;
 use App\Models\DetallesVenta;
 use App\Models\TipoVenta;
-use App\Models\TipoDocumento; // Asegúrate de importar el modelo
+use App\Models\TipoDocumento;
+use App\Models\TipoUsuario; // Importar el modelo TipoUsuario
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -25,15 +26,16 @@ class RealizaventaController extends Controller
     {
         $tipos_venta = TipoVenta::all();
         $tiposDocumentos = TipoDocumento::all(); // Obtener todos los tipos de documentos
+        $tiposUsuarios = TipoUsuario::all(); // Obtener todos los tipos de usuarios
 
-        return view('realizaventas', compact('tipos_venta', 'tiposDocumentos'));
+        return view('realizaventas', compact('tipos_venta', 'tiposDocumentos', 'tiposUsuarios'));
     }
 
     public function buscarUsuarios(Request $request)
     {
         $search = $request->input('search');
 
-        $users = User::where('idtipo_usuario', 1)
+        $users = User::where('idtipo_usuario', 1) // Filtra por el tipo de usuario que necesites
             ->where(function ($query) use ($search) {
                 $query->where('nombre', 'LIKE', "%$search%")
                     ->orWhere('apellido', 'LIKE', "%$search%")
@@ -66,34 +68,41 @@ class RealizaventaController extends Controller
                 'apellido' => 'required|string|max:255',
                 'numero_identificacion' => 'required|string|max:255|unique:users,numero_identificacion',
                 'idtipo_documento' => 'required|exists:tipo_documento,id',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Tamaño máximo 2MB
+                'tipo_usuario' => 'required|exists:tipos_usuarios,id',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-
+    
             // Crear el usuario
             $user = new User([
                 'nombre' => $request->nombre,
                 'apellido' => $request->apellido,
                 'numero_identificacion' => $request->numero_identificacion,
                 'idtipo_documento' => $request->idtipo_documento,
+                'idtipo_usuario' => $request->tipo_usuario,
             ]);
-
+    
             // Manejar la foto si está presente
             if ($request->hasFile('foto')) {
                 $imagen = $request->file('foto');
                 $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
                 $rutaImagen = 'fotos/' . $nombreImagen;
-
-                // Almacenar la imagen en el almacenamiento
                 $imagen->storeAs('public/' . $rutaImagen);
-
-                // Guardar la ruta de la imagen en el modelo User
                 $user->foto = $rutaImagen;
             }
-
+    
             $user->save();
-
-            return response()->json(['success' => true, 'message' => 'Cliente añadido exitosamente.']);
-
+    
+            // Devolver el cliente recién creado en la respuesta
+            return response()->json([
+                'success' => true,
+                'message' => 'Cliente añadido exitosamente.',
+                'cliente' => [
+                    'id' => $user->id,
+                    'nombre' => $user->nombre,
+                    'apellido' => $user->apellido,
+                ]
+            ]);
+    
         } catch (ValidationException $e) {
             return response()->json(['success' => false, 'errors' => $e->validator->errors()]);
         } catch (\Exception $e) {

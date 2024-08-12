@@ -1,26 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-// use App\Models\Notification;
 
-use App\Models\Compra;
-use App\Models\Stock;
-use App\Models\DetalleCompra;
-use App\Models\Producto;
-use App\Models\User;
-use App\Models\TipoVenta;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Stock;
+use App\Models\Producto;
+use App\Models\Compra;
+use App\Models\DetalleCompra;
 use App\Models\TipoCompra;
+use App\Models\TipoDocumento;
+use App\Models\TipoVenta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class RealizarCompraController extends Controller
 {
     public function index()
     {
         $tipos_venta = TipoVenta::all(); // Obtener todos los tipos de venta
+        $tiposDocumentos = TipoDocumento::all(); // Obtener todos los tipos de documentos
 
         return view('realizacompras', [
-            'tipos_venta' => $tipos_venta
+            'tipos_venta' => $tipos_venta,
+            'tiposDocumentos' => $tiposDocumentos, // Pasar los tipos de documentos a la vista
         ]);
     }
 
@@ -51,6 +54,55 @@ class RealizarCompraController extends Controller
             ];
         })->all();
         return response()->json(['productos' => $productosArray]);
+    }
+
+    public function guardarProveedor(Request $request)
+    {
+        try {
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'apellido' => 'required|string|max:255',
+                'numero_identificacion' => 'required|string|max:255|unique:users,numero_identificacion',
+                'idtipo_documento' => 'required|exists:tipo_documento,id',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            // Crear el usuario (Proveedor)
+            $user = new User([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'numero_identificacion' => $request->numero_identificacion,
+                'idtipo_documento' => $request->idtipo_documento,
+                'idtipo_usuario' => 2, // Forzar el tipo de usuario a "Proveedor"
+            ]);
+
+            // Manejar la foto si está presente
+            if ($request->hasFile('foto')) {
+                $imagen = $request->file('foto');
+                $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+                $rutaImagen = 'fotos/' . $nombreImagen;
+                $imagen->storeAs('public/' . $rutaImagen);
+                $user->foto = $rutaImagen;
+            }
+
+            $user->save();
+
+            // Devolver el proveedor recién creado en la respuesta
+            return response()->json([
+                'success' => true,
+                'message' => 'Proveedor añadido exitosamente.',
+                'proveedor' => [
+                    'id' => $user->id,
+                    'nombre' => $user->nombre,
+                    'apellido' => $user->apellido,
+                ]
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json(['success' => false, 'errors' => $e->validator->errors()]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 
     public function guardarCompra(Request $request)
@@ -104,12 +156,6 @@ class RealizarCompraController extends Controller
             $productoModel->stock += $producto['cantidad'];
             $productoModel->save();
         }
-
-        // Notification::create([
-        //     'user_id' => auth()->user()->id,
-        //     'message' => 'Se realizó una venta.',
-        //     'type' => 'venta'
-        // ]);
 
         return response()->json(['success' => 'Compra registrada correctamente']);
     }

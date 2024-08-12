@@ -26,6 +26,7 @@
                                             <input type="hidden" id="cliente_id" name="cliente_id">
                                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">Seleccionar Cliente</button><p>&nbsp;</p><p>&nbsp;</p>
                                             <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">Añadir Cliente</button>
+                                            
                                         </div>                    
                     
                             </div>
@@ -138,12 +139,16 @@
                             <option value="">Seleccionar Tipo de Documento</option>
                             @foreach($tiposDocumentos as $tipoDocumento)
                                 <option value="{{ $tipoDocumento->id }}">{{ $tipoDocumento->nombre }}</option>
-                            @endforeach
+                            @endforeach 
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="numero_identificacion" class="form-label">Número de Identificación</label>
-                        <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" required autocomplete="off">
+    <label for="numero_identificacion" class="form-label">Número de Identificación</label>
+    <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" required autocomplete="off" maxlength="8">
+    <span id="dniError" class="text-danger d-none">El DNI debe tener exactamente 8 dígitos.</span>
+</div>
+                    <div class="mb-3">
+                        <input type="hidden" id="tipo_usuario" name="tipo_usuario" value="1"> <!-- Campo oculto con valor de Cliente -->
                     </div>
                     <div class="mb-3">
                         <label for="foto" class="form-label">Foto</label>
@@ -158,10 +163,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 
@@ -444,9 +445,6 @@
         });
     });
 
-
-   
-    // Enviar formulario de nuevo cliente por AJAX
     $(document).ready(function() {
     $('#nuevoClienteForm').on('submit', function(event) {
         event.preventDefault(); // Previene el envío normal del formulario
@@ -464,18 +462,28 @@
             },
             success: function(response) {
                 if (response.success) {
+                    // Mostrar mensaje de éxito
                     alert('Cliente añadido exitosamente');
-                    // Cierra el modal
+
+                    // Autorrellenar los campos en el formulario de ventas con el cliente recién añadido
+                    var nuevoCliente = response.cliente;
+                    $('#cliente_nombre').val(nuevoCliente.nombre + ' ' + nuevoCliente.apellido);
+                    $('#cliente_id').val(nuevoCliente.id);
+
+                    // Cierra el modal de añadir cliente
                     var modalEl = document.getElementById('nuevoClienteModal');
                     var modal = bootstrap.Modal.getInstance(modalEl);
                     modal.hide();
-                    // Recargar la página o actualizar la lista de usuarios
-                    location.reload();
+
                 } else {
                     var errorMessage = '';
                     if (response.errors) {
                         for (const [field, messages] of Object.entries(response.errors)) {
-                            errorMessage += `${field}: ${messages.join(', ')}\n`;
+                            if(field === 'numero_identificacion') {
+                                errorMessage += 'El número de identificación ya está en uso. Por favor, usa otro.\n';
+                            } else {
+                                errorMessage += `${field}: ${messages.join(', ')}\n`;
+                            }
                         }
                     } else {
                         errorMessage = 'Hubo un error al añadir el cliente';
@@ -489,8 +497,34 @@
             }
         });
     });
+
+    // Código para manejar la selección de cliente desde el modal de selección de cliente (si fuera necesario)
+    $('#clienteModal').on('show.bs.modal', function() {
+        // Aquí podrías agregar lógica para listar clientes o manejar la selección del cliente
+    });
 });
-    
+
+document.addEventListener('DOMContentLoaded', function() {
+        const dniInput = document.getElementById('numero_identificacion');
+        const dniError = document.getElementById('dniError');
+
+        dniInput.addEventListener('input', function() {
+            const dniValue = dniInput.value;
+
+            if (dniValue.length > 8) {
+                dniError.classList.remove('d-none');
+                dniInput.value = dniValue.slice(0, 8); // Limitar la longitud a 8 caracteres
+            } else {
+                dniError.classList.add('d-none');
+            }
+        });
+    });
+
+
+
+   
+ 
+
 
 </script>
 @endsection
