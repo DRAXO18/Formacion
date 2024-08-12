@@ -442,7 +442,7 @@
                                 Mis Favoritos
                             </a>
                             
-                            <a class="dropdown-item" href="{{ route('billetera.index') }}"><i
+                            <a class="dropdown-item" href="#"><i
                                     class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"></i>Mi Billetera</a>
                             <a class="dropdown-item d-flex align-items-center" href="{{route('configuracion.index')}}"><i
                                     class="mdi mdi-cog font-size-17 text-muted align-middle me-1"></i>Ajustes<span
@@ -519,15 +519,7 @@
                 }
             }
 
-            document.querySelector('[data-bs-target="#favoritesModal"]').addEventListener('click', function() {
-        fetch('{{ route("favorites.get") }}')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('modal-container').innerHTML = html;
-                var myModal = new bootstrap.Modal(document.getElementById('favoritesModal'), {});
-                myModal.show();
-            });
-    });
+            
         </script>
 
         <!-- ========== Left Sidebar Start ========== -->

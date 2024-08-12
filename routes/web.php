@@ -48,11 +48,6 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::middleware('auth')->group(function () {
 
-    // Ruta para alternar el estado de favorito (añadir/eliminar)
-    Route::post('/favorites/toggle', [FavoriteController::class, 'toggleFavorite'])->name('favorites.toggle');
-
-    // Ruta para obtener y mostrar la lista de vistas favoritas del usuario
-    Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->name('favorites.get');
 
     Route::middleware(['check.acceso:ProductoController'])->group(function () {
         $productoRoutes = [
@@ -291,3 +286,15 @@ Route::middleware('auth')->group(function () {
         ->middleware(['auth', 'throttle:6,1'])
         ->name('verification.send');
 });
+
+// $accesos = Acceso::whereNotNull('controlador')->get();
+
+// foreach ($accesos as $acceso){
+//     if(class_exists($acceso->controller)){
+//         Route::middleware(['auth','check.acceso'.$acceso->name])
+//             ->get($acceso->controlador)
+//             ->name($acceso->name);
+//     } else{
+//         \Log::error("Ruta o controlador invalido: {$acceso->name}");
+//     }
+// }
