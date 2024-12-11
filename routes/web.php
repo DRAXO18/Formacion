@@ -131,6 +131,8 @@ Route::middleware('auth')->group(function () {
             ['method' => 'get', 'uri' => '/realizacompras/buscarProductos', 'action' => 'buscarProductos', 'name' => 'realizacompras.buscarProductos'],
             ['method' => 'get', 'uri' => '/realizacompras/buscarUsuarios', 'action' => 'buscarProveedores', 'name' => 'realizacompras.buscarProveedores'],
             ['method' => 'post', 'uri' => '/realizacompras/store', 'action' => 'store', 'name' => 'realizacompras.store'],
+            ['method' => 'post', 'uri' => 'realizacompras/guardar-proveedor', 'action' => 'guardarProveedor', 'name' => 'realizacompras.guardarProveedor'],
+
         ];
         foreach ($realizaCompraRoutes as $route) {
             Route::{$route['method']}($route['uri'], [RealizarCompraController::class, $route['action']])->name($route['name']);

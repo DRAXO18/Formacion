@@ -46,7 +46,7 @@ class TiendaController extends Controller
 
         Tienda::create($data);
 
-        return redirect()->route('TiendaController.vistasucursales')->with('success', 'Tienda agregada exitosamente.');
+        return redirect()->route('TiendaController.index')->with('success', 'Tienda agregada exitosamente.');
     }
 
     // Actualizar una tienda
@@ -74,7 +74,7 @@ class TiendaController extends Controller
 
         $tienda->update($data);
 
-        return redirect()->route('TiendaController.vistasucursales')->with('success', 'Tienda actualizada exitosamente.');
+        return redirect()->route('TiendaController.index')->with('success', 'Tienda actualizada exitosamente.');
     }
 
     // Eliminar una tienda
@@ -89,7 +89,7 @@ class TiendaController extends Controller
 
         $tienda->delete();
 
-        return redirect()->route('TiendaController.vistasucursales')->with('success', 'Tienda eliminada exitosamente.');
+        return redirect()->route('TiendaController.index')->with('success', 'Tienda eliminada exitosamente.');
     }
 
     // Obtener información del ubigeo

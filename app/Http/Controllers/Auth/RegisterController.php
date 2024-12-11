@@ -39,7 +39,7 @@ class RegisterController extends Controller
 
         session()->flash('welcome_name', $user->nombre);
 
-        return redirect()->route('dashboard'); // Redirigir al dashboard o cualquier ruta deseada
+        return redirect()->route('/'); // Redirigir al dashboard o cualquier ruta deseada
     }
 
     protected function validator(array $data)

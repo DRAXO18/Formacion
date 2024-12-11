@@ -53,6 +53,6 @@ class AsignarRolController extends Controller
         // Actualizar el campo id_rol en la tabla users para el usuario seleccionado
         User::where('id', $request->id_usuario)->update(['id_rol' => $request->id_rol]);
 
-        return redirect()->route('asignar-rol.index')->with('success', 'Rol asignado exitosamente.');
+        return redirect()->route('AsignarRolController.index')->with('success', 'Rol asignado exitosamente.');
     }
 }

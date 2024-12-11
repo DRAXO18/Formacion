@@ -72,7 +72,7 @@ class UsuariosController extends Controller
     
             $user->save();
             
-            return redirect()->route('usuarios.index')->with('success', 'Usuario añadido exitosamente.');
+            return redirect()->route('UsuariosController.index')->with('success', 'Usuario añadido exitosamente.');
 
     } catch (ValidationException $e) {
         return back()->withErrors($e->validator->errors())->withInput();

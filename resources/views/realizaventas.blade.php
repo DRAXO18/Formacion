@@ -1,235 +1,243 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-2">
+<div class="container mt-4">
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mt-4">
+                        <div class="card shadow-lg rounded-lg p-4 bg-white border-0">
                             <div class="card-body">
-                                <h4 class="header-title mb-3">Formulario de cardiaco</h4>
+                                <h4 class="header-title mb-4 text-primary"><i class="bi bi-card-checklist"></i> Formulario de Venta</h4>
                                 @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
                                 @endif
 
                                 <form id="ventaForm">
                                     @csrf
-                                    <div class="mb-3">
-                                        <label for="cliente_id" class="form-label">Cliente</label>
-                                        <div class="input-group mb-2">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="cliente_id" class="form-label text-muted"><i class="bi bi-person-circle"></i> Cliente</label>
+                                            <div class="input-group">
                                             <input type="text" class="form-control" id="cliente_nombre" name="cliente_nombre" placeholder="Seleccionar Cliente" readonly>
-                                            <input type="hidden" id="cliente_id" name="cliente_id">
-                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#clienteModal">Seleccionar Cliente</button><p>&nbsp;</p><p>&nbsp;</p>
-                                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">Añadir Cliente</button>
-                                            
-                                        </div>                    
-                    
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha_venta" class="form-label">Fecha de Registro</label>
-                                <input type="date" class="form-control" id="fecha_venta" name="fecha_venta" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="tipo_venta" class="form-label">Tipo de Venta</label>
-                                <select class="form-control" id="tipo_venta" name="tipo_venta" required>
-                                    <option>--SELECCIONAR--</option>
-                                    @foreach ($tipos_venta as $tipo)
-                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                                <input type="hidden" id="cliente_id" name="cliente_id">
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#clienteModal"><i class="bi bi-search"></i>Seleccionar</button>
+                                                <button type="button" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal"><i class="bi bi-person-plus"></i>Añadir</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="fecha_venta" class="form-label text-muted"><i class="bi bi-calendar-date"></i> Fecha de Registro</label>
+                                            <input type="date" class="form-control" id="fecha_venta" name="fecha_venta" required>
+                                        </div>
+                                    </div>
 
-                            <div class="mb-3">
-                                <label for="usuario_nombre" class="form-label">Usuario</label>
-                                <input type="text" class="form-control" id="usuario_nombre" name="usuario_nombre" value="{{ Auth::user()->nombre }} ({{ Auth::user()->email }})" readonly>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="tipo_venta" class="form-label text-muted"><i class="bi bi-list-ul"></i> Tipo de Venta</label>
+                                            <select class="form-control" id="tipo_venta" name="tipo_venta" required>
+                                                <option>--SELECCIONAR--</option>
+                                                @foreach ($tipos_venta as $tipo)
+                                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="usuario_nombre" class="form-label text-muted"><i class="bi bi-person"></i> Usuario</label>
+                                            <input type="text" class="form-control" id="usuario_nombre" name="usuario_nombre" value="{{ Auth::user()->nombre }} ({{ Auth::user()->email }})" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#productoModal"><i class="bi bi-box-seam"></i> Seleccionar Productos</button>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table id="productosSeleccionados" class="table table-striped table-hover shadow-sm rounded bg-white">
+                                            <thead class="bg-primary text-white">
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Aquí se añadirán los productos seleccionados -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="total" class="form-label text-muted"><i class="bi bi-cash-stack"></i> Total</label>
+                                            <input type="text" class="form-control" id="total" name="total" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-check-circle"></i> Realizar Venta</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#productoModal">Seleccionar Productos</button>
-                            </div>
-                            <table id="productosSeleccionados" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Subtotal</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                            <div class="mb-3">
-                                <label for="total" class="form-label">Total</label>
-                                <input type="text" class="form-control" id="total" name="total" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">Realizar Venta</button>
-                            </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-
-            <!-- Modal para seleccionar cliente -->
-            <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="clienteModalLabel">Seleccionar Cliente</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="searchClienteForm">
-                                <div class="mb-3">
-                                    <label for="searchCliente" class="form-label">Buscar Cliente por Nombre o
-                                        Identificación</label>
-                                    <input type="text" class="form-control" id="searchCliente" placeholder="Nombre o Identificación del Cliente">
+                <!-- Modal para seleccionar cliente -->
+                <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="clienteModalLabel"><i class="bi bi-search"></i> Seleccionar Cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="searchClienteForm">
+                                    <div class="mb-3">
+                                        <label for="searchCliente" class="form-label text-muted"><i class="bi bi-search"></i> Buscar Cliente</label>
+                                        <input type="text" class="form-control" id="searchCliente" placeholder="Nombre o Identificación del Cliente">
+                                    </div>
+                                </form>
+                                <div class="table-responsive">
+                                    <table id="clientesTabla" class="table table-striped table-hover shadow-sm rounded bg-white mt-3">
+                                        <thead class="bg-dark text-white">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Identificación</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Clientes serán listados aquí -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </form>
-                            <table id="clientesTabla" class="table table-striped mt-3">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Identificación</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="nuevoClienteModalLabel">Añadir Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="nuevoClienteForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required autocomplete="name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" required autocomplete="family-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="idtipo_documento" class="form-label">Tipo de Documento</label>
-                        <select class="form-control" id="idtipo_documento" name="idtipo_documento" required>
-                            <option value="">Seleccionar Tipo de Documento</option>
-                            @foreach($tiposDocumentos as $tipoDocumento)
-                                <option value="{{ $tipoDocumento->id }}">{{ $tipoDocumento->nombre }}</option>
-                            @endforeach 
-                        </select>
-                    </div>
-                    <div class="mb-3">
-    <label for="numero_identificacion" class="form-label">Número de Identificación</label>
-    <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" required autocomplete="off" maxlength="8">
-    <span id="dniError" class="text-danger d-none">El DNI debe tener exactamente 8 dígitos.</span>
-</div>
-                    <div class="mb-3">
-                        <input type="hidden" id="tipo_usuario" name="tipo_usuario" value="1"> <!-- Campo oculto con valor de Cliente -->
-                    </div>
-                    <div class="mb-3">
-                        <label for="foto" class="form-label">Foto</label>
-                        <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-            <!-- Modal para seleccionar producto -->
-            <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="productoModalLabel">Seleccionar Producto</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Modal para añadir cliente -->
+                <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="nuevoClienteModalLabel"><i class="bi bi-person-plus"></i> Añadir Cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="nuevoClienteForm" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label text-muted"><i class="bi bi-person"></i> Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required autocomplete="name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="apellido" class="form-label text-muted"><i class="bi bi-person-badge"></i> Apellido</label>
+                                        <input type="text" class="form-control" id="apellido" name="apellido" required autocomplete="family-name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="idtipo_documento" class="form-label text-muted"><i class="bi bi-file-earmark-text"></i> Tipo de Documento</label>
+                                        <select class="form-control" id="idtipo_documento" name="idtipo_documento" required>
+                                            <option value="">Seleccionar Tipo de Documento</option>
+                                            @foreach($tiposDocumentos as $tipoDocumento)
+                                                <option value="{{ $tipoDocumento->id }}">{{ $tipoDocumento->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="numero_identificacion" class="form-label text-muted"><i class="bi bi-credit-card"></i> Número de Identificación</label>
+                                        <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion" required autocomplete="off" maxlength="8">
+                                        <span id="dniError" class="text-danger d-none">El DNI debe tener exactamente 8 dígitos.</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="hidden" id="tipo_usuario" name="tipo_usuario" value="1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="foto" class="form-label text-muted"><i class="bi bi-image"></i> Foto</label>
+                                        <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form id="searchProductoForm">
-                                <div class="mb-3">
-                                    <label for="searchProducto" class="form-label">Buscar Producto</label>
-                                    <input type="text" class="form-control" id="searchProducto" placeholder="Nombre del Producto">
+                    </div>
+                </div>
+
+                <!-- Modal para seleccionar producto -->
+                <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productoModalLabel"><i class="bi bi-box-seam"></i> Seleccionar Producto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="searchProductoForm">
+                                    <div class="mb-3">
+                                        <label for="searchProducto" class="form-label text-muted"><i class="bi bi-search"></i> Buscar Producto</label>
+                                        <input type="text" class="form-control" id="searchProducto" placeholder="Nombre del Producto">
+                                    </div>
+                                </form>
+                                <div class="table-responsive">
+                                    <table id="productosTabla" class="table table-striped table-hover shadow-sm rounded bg-white mt-3">
+                                        <thead class="bg-dark text-white">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Productos serán listados aquí -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </form>
-                            <table id="productosTabla" class="table table-striped mt-3">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Toast de éxito -->
+                <div aria-live="polite" aria-atomic="true" class="position-relative">
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="successToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header bg-success text-white">
+                                <strong class="me-auto">Éxito</strong>
+                                <small>Ahora</small>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                La venta se ha realizado con éxito.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-</div>
-
-<div aria-live="polite" aria-atomic="true" class="position-relative">
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="successToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header bg-success text-white">
-                <strong class="me-auto">Éxito</strong>
-                <small>Ahora</small>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                La venta se ha realizado con éxito.
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- <!-- Bootstrap y scripts adicionales -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> --}}
-
-
 
 <script>
-    // Función para buscar clientes por AJAX
-    $('#searchCliente').on('input', function() {
+// Función para buscar clientes por AJAX
+$('#searchCliente').on('input', function() {
         var search = $(this).val();
         if (search.length >= 3) {
             $.ajax({
@@ -519,12 +527,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-
-
-   
- 
-
 
 </script>
 @endsection
